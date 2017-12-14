@@ -1,0 +1,270 @@
+# depslib dependency file v1.0
+1512577662 source:f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\main.cpp
+	<FL/Fl.H>
+	<FL/Fl_Window.H>
+	<FL/fl_draw.H>
+	<string>
+
+1474017108 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl.h
+	<FL/Fl_Export.H>
+	<FL/Fl_Cairo.H>
+	"fl_utf8.h"
+	"Enumerations.H"
+	<stdio.h>
+	<FL/Fl.H>
+	<FL/Fl_Window.H>
+
+1408624188 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_export.h
+
+1455384936 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_cairo.h
+	<FL/Fl_Export.H>
+	<cairo.h>
+
+1456920908 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_utf8.h
+	"Fl_Export.H"
+	"fl_types.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<locale.h>
+	<ctype.h>
+	<wchar.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<X11/Xlocale.h>
+	<X11/Xlib.h>
+	<locale.h>
+
+1434399881 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_types.h
+
+1468089811 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\enumerations.h
+	<FL/abi-version.h>
+	"Fl_Export.H"
+	"fl_types.h"
+
+1505219735 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\abi-version.h
+
+1438020826 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_window.h
+	<windows.h>
+	"Fl_Group.H"
+	"Fl_Bitmap.H"
+	<stdlib.h>
+
+1415657351 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_group.h
+	"Fl_Widget.H"
+
+1428224684 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_widget.h
+	"Enumerations.H"
+	<stdint.h>
+	<stddef.h>
+
+1393080710 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_bitmap.h
+	"Fl_Image.H"
+
+1476462944 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_image.h
+	"Enumerations.H"
+	<stdlib.h>
+
+1474801626 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_draw.h
+	<FL/x.H>
+	<FL/Enumerations.H>
+	<FL/Fl_Window.H>
+	<FL/Fl_Device.H>
+
+1448555698 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\x.h
+	"Enumerations.H"
+	"win32.H"
+	"mac.H"
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xatom.h>
+	"Fl_Window.H"
+
+1410773705 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\win32.h
+	<windows.h>
+	<FL/Fl_Window.H>
+
+1475906354 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\mac.h
+	<FL/Fl_Widget.H>
+	<ApplicationServices/ApplicationServices.h>
+	"Fl_Window.H"
+	"../src/Fl_Font.H"
+
+1476630002 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_device.h
+	<FL/x.H>
+	<FL/Fl_Plugin.H>
+	<FL/Fl_Image.H>
+	<FL/Fl_Bitmap.H>
+	<FL/Fl_Pixmap.H>
+	<FL/Fl_RGB_Image.H>
+	<stdlib.h>
+
+1311050970 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_plugin.h
+	"Fl_Preferences.H"
+
+1379363114 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_preferences.h
+	<stdio.h>
+	"Fl_Export.H"
+
+1352234774 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_pixmap.h
+	"Fl_Image.H"
+	"x.H"
+
+1311050970 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_rgb_image.h
+	"Fl_Image.H"
+
+1512528322 source:f:\大三上\introduction to computing\graph_lib\graph.cpp
+	<fstream>
+	<map>
+	<algorithm>
+	"Graph.h"
+
+1512528322 f:\大三上\introduction to computing\graph_lib\graph.h
+	<vector>
+	<string>
+	<cmath>
+	<stdexcept>
+	"Point.h"
+	"fltk.h"
+
+1511742686 f:\大三上\introduction to computing\graph_lib\point.h
+
+1512528322 f:\大三上\introduction to computing\graph_lib\fltk.h
+	"FL/Fl.H"
+	"FL/Fl_Window.H"
+	"FL/Fl_Button.H"
+	"FL/Fl_Input.H"
+	"FL/Fl_Output.H"
+	"FL/fl_draw.H"
+	"FL/Enumerations.H"
+	"FL/Fl_JPEG_Image.H"
+	"FL/Fl_GIF_Image.H"
+	"FL/Fl_PNG_Image.H"
+	"FL/Fl_BMP_Image.H"
+
+1413749837 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_button.h
+	"Fl_Widget.H"
+
+1311050970 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_input.h
+	"Fl_Input_.H"
+
+1437486913 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_input_.h
+	"Fl_Widget.H"
+
+1343104642 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_output.h
+	"Fl_Input.H"
+
+1432424546 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_jpeg_image.h
+	"Fl_Image.H"
+
+1432424546 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_gif_image.h
+	"Fl_Pixmap.H"
+
+1311050970 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_png_image.h
+	"Fl_Image.H"
+
+1432424546 f:\大三上\introduction to computing\fltk-1.3.4-1\include\fl\fl_bmp_image.h
+	"Fl_Image.H"
+
+1512090536 source:f:\大三上\introduction to computing\graph_lib\gui.cpp
+	<sstream>
+	"GUI.h"
+
+1512528322 f:\大三上\introduction to computing\graph_lib\gui.h
+	"fltk.h"
+	"Point.h"
+	"Window.h"
+	"Graph.h"
+
+1511742686 f:\大三上\introduction to computing\graph_lib\window.h
+	<vector>
+	<string>
+	"fltk.h"
+	"Point.h"
+
+1512528322 source:f:\大三上\introduction to computing\graph_lib\window.cpp
+	<string>
+	"Window.h"
+	"Graph.h"
+	"GUI.h"
+
+1512528322 source:f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\graph.cpp
+	<fstream>
+	<map>
+	<algorithm>
+	"Graph.h"
+
+1512528322 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\graph.h
+	<vector>
+	<string>
+	<cmath>
+	<stdexcept>
+	"Point.h"
+	"fltk.h"
+
+1511742686 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\point.h
+
+1512528322 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\fltk.h
+	"FL/Fl.H"
+	"FL/Fl_Window.H"
+	"FL/Fl_Button.H"
+	"FL/Fl_Input.H"
+	"FL/Fl_Output.H"
+	"FL/fl_draw.H"
+	"FL/Enumerations.H"
+	"FL/Fl_JPEG_Image.H"
+	"FL/Fl_GIF_Image.H"
+	"FL/Fl_PNG_Image.H"
+	"FL/Fl_BMP_Image.H"
+
+1512090536 source:f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\gui.cpp
+	<sstream>
+	"GUI.h"
+
+1512528322 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\gui.h
+	"fltk.h"
+	"Point.h"
+	"Window.h"
+	"Graph.h"
+
+1511742686 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\window.h
+	<vector>
+	<string>
+	"fltk.h"
+	"Point.h"
+
+1512990301 source:f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\test.cpp
+	<iostream>
+	"maze.h"
+	"Simple_window.h"
+	"Graph.h"
+	"Vector_ref.h"
+
+1512359298 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\simple_window.h
+	"Point.h"
+	"Window.h"
+	"GUI.h"
+
+1512528322 source:f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\window.cpp
+	<string>
+	"Window.h"
+	"Graph.h"
+	"GUI.h"
+
+1512988220 source:f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\maze.cpp
+	<iostream>
+	<stdlib.h>
+	<stack>
+	"maze.h"
+	"time.h"
+
+1512990692 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\maze.h
+	<map>
+	<vector>
+
+1512371580 f:\大三上\introduction to computing\ex04_1500017790_王洁然\test\vector_ref.h
+	<vector>
+
