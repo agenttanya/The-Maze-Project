@@ -3,23 +3,20 @@
 #include"Simple_window.h"
 #include"Graph.h"
 #include"Vector_ref.h"
+#include"wetry.h"
 using namespace std;
 using Graph_lib::Point;
 using Graph_lib::Color;
 using Graph_lib::Line_style;
 
-constexpr int x0 {30};
-constexpr int y0 {30};
-constexpr int dx {20};
-constexpr int dy {20};
 
 int main()
 {
     int height,width;
     char difficulty;
     cout<<"Please input the size and difficulty: ";
-    cin>>width>>height>>difficulty;
-    Simple_window win {Point{0,0}, width*dx+2*x0, height*dy+2*y0, "Some shapes"};
+    cin>>width>>height>>difficulty;//cin （我们自己设计几个文件，来作为重叠的难度）此外，让用户输入还是会出现各种各样的bug，倒不如自己设置几个难度配组，因为大了难度也会更大，然后在图形界面上搞成button的形式
+    My_window win {Point{100,0}, x0+12*width, y0+12*height, "Move a ball"};
     maze firstmaze= {width,height,difficulty};
     Graph_lib::Line b1 {Point{x0,y0},Point{dx*width+x0,y0}};
     b1.set_style(Line_style{Line_style::solid,2});
