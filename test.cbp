@@ -3,6 +3,7 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="test" />
+		<Option makefile="makefile" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -74,6 +75,8 @@
 		<Unit filename="test_keyboard.cbp" />
 		<Unit filename="test_move.cbp" />
 		<Unit filename="test_vector_ref.cbp" />
+		<Unit filename="wetry.cpp" />
+		<Unit filename="wetry.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
