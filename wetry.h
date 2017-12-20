@@ -1,14 +1,11 @@
 #include <cmath>
-
-#include "Window.h"
-#include <cmath>
 #include "maze.h"
-#include"Vector_ref.h"
-#include "Simple_window.h"
-
-#include "Window.h"
-#include "Graph.h"
-#include "GUI.h"
+#include "../Graph_lib/GUI.h"
+#include "../Graph_lib/Graph.h"
+#include "../Graph_lib/Window.h"
+#include "../Graph_lib/Point.h"
+#include "../Graph_lib/Vector_ref.h"
+#include "../Graph_lib/fltk.h"
 
 using namespace std;
 
