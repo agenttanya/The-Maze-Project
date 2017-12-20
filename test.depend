@@ -269,6 +269,7 @@
 	"Graph.h"
 	"GUI.h"
 
+<<<<<<< HEAD
 1513786330 source:f:\¥Û»˝…œ\introduction to computing\graph_lib\graph.cpp
 	<fstream>
 	<map>
@@ -278,3 +279,5 @@
 1512371580 f:\¥Û»˝…œ\introduction to computing\graph_lib\vector_ref.h
 	<vector>
 
+=======
+>>>>>>> parent of ae4e30e... Âñµ
