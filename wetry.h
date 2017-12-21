@@ -1,6 +1,12 @@
 #include <cmath>
 
 #include "Window.h"
+#include <cmath>
+#include "maze.h"
+#include"Vector_ref.h"
+#include "Simple_window.h"
+
+#include "Window.h"
 #include "Graph.h"
 #include "GUI.h"
 
@@ -9,14 +15,48 @@ using namespace std;
 using Graph_lib::Point;
 using Graph_lib::Line_style;
 using Graph_lib::Color;
-constexpr int x0 {60};
-constexpr int y0 {80};
-constexpr int dx {10};
-constexpr int dy {10};
 
+using namespace std;
+
+using Graph_lib::Point;
+using Graph_lib::Line_style;
+using Graph_lib::Color;
 
 
 class My_window : public Graph_lib::Window {
+
+public:
+
+  My_window(Point xy, int w, int h, const maze& firstmaze, const string& title);
+
+private:
+
+  Graph_lib::Button quit_button;
+  int x;
+  int y;
+  vector<vector<block>> blockset;
+  int width;
+  int height;
+  Graph_lib::Circle ball;
+
+  // callback for quit_button
+  static void cb_quit(void*, void* pw) {
+    static_cast<My_window*>(pw)->quit();
+  }
+
+  void quit() { hide(); }
+
+  bool handle_keydown(int key);
+
+  int handle(int event);
+
+};
+
+
+
+
+
+/*class My_window : public Graph_lib::Window {
 
 public:
 
@@ -60,3 +100,4 @@ private:
 
   void right();
 };
+*/
