@@ -1,4 +1,6 @@
-#include<map>
+#ifndef MAZE_H
+#define MAZE_H
+
 #include<vector>
 using namespace std;
 
@@ -38,3 +40,4 @@ struct maze{
     void random_construct3();
     void division(int x1,int x2,int y1,int y2);
 };
+#endif
