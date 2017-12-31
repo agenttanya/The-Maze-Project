@@ -14,7 +14,7 @@ using namespace Graph_lib;
 
 const int h {20};
 const int w {20};
-const char diff {'E'};
+const char diff {'H'};
 
 //游戏区域（Game Area的缩写）
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
