@@ -61,8 +61,6 @@
 		<Unit filename="maze.cpp" />
 		<Unit filename="maze.h" />
 		<Unit filename="test.cpp" />
-		<Unit filename="wetry.cpp" />
-		<Unit filename="wetry.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
