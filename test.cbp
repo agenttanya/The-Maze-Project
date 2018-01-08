@@ -28,7 +28,7 @@
 			<Add option="-std=c++11" />
 			<Add option="-mms-bitfields" />
 			<Add option="-DWIN32" />
-			<Add directory="F:/大三上/Introduction to Computing/fltk-1.3.4-1/include" />
+			<Add directory="D:/project/fltk-1/fltk-1.3.4-1/include" />
 		</Compiler>
 		<Linker>
 			<Add library="fltk_images" />
@@ -44,25 +44,22 @@
 			<Add library="gdi32" />
 			<Add library="user32" />
 			<Add library="kernel32" />
-			<Add directory="F:/大三上/Introduction to Computing/fltk-1.3.4-1/lib" />
+			<Add directory="D:/project/fltk-1/fltk-1.3.4-1/lib" />
 		</Linker>
-		<Unit filename="../Graph_lib/GUI.cpp" />
-		<Unit filename="../Graph_lib/GUI.h" />
-		<Unit filename="../Graph_lib/Graph.cpp" />
-		<Unit filename="../Graph_lib/Graph.h" />
-		<Unit filename="../Graph_lib/Point.h" />
-		<Unit filename="../Graph_lib/Simple_window.h" />
-		<Unit filename="../Graph_lib/Vector_ref.h" />
-		<Unit filename="../Graph_lib/Window.cpp" />
-		<Unit filename="../Graph_lib/Window.h" />
-		<Unit filename="../Graph_lib/fltk.h" />
+		<Unit filename="GUI.cpp" />
+		<Unit filename="GUI.h" />
+		<Unit filename="Graph.cpp" />
+		<Unit filename="Graph.h" />
 		<Unit filename="Interface.cpp" />
 		<Unit filename="Interface.h" />
+		<Unit filename="Point.h" />
+		<Unit filename="Simple_window.h" />
+		<Unit filename="Vector_ref.h" />
+		<Unit filename="Window.cpp" />
+		<Unit filename="fltk.h" />
 		<Unit filename="maze.cpp" />
 		<Unit filename="maze.h" />
 		<Unit filename="test.cpp" />
-		<Unit filename="wetry.cpp" />
-		<Unit filename="wetry.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -3,12 +3,12 @@
 
 #include <cmath>
 #include "maze.h"
-#include "../Graph_lib/GUI.h"
-#include "../Graph_lib/Graph.h"
-#include "../Graph_lib/Window.h"
-#include "../Graph_lib/Point.h"
-#include "../Graph_lib/Vector_ref.h"
-#include "../Graph_lib/fltk.h"
+#include "GUI.h"
+#include "Graph.h"
+#include "Window.h"
+#include "Point.h"
+#include "Vector_ref.h"
+#include "fltk.h"
 
 using namespace std;
 
