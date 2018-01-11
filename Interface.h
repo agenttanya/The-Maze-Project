@@ -14,6 +14,7 @@ using namespace Graph_lib;
 
 const int h {20};
 const int w {20};
+<<<<<<< HEAD
 const char diff {'H'};
 struct Track
 {
@@ -23,6 +24,10 @@ struct Track
   Track();
   Track(int xx,int yy, string t):x{xx},y{yy},dir{t}{};
 };
+=======
+const char diff {'E'};
+
+>>>>>>> f151da12ac137a9cbbce2d69abbd061882a2f58c
 //游戏区域（Game Area的缩写）
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
 struct GA {
