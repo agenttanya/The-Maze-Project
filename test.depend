@@ -185,16 +185,16 @@
 	"Graph.h"
 	"GUI.h"
 
-1515761242 source:f:\大三上\introduction to computing\the-maze-project\interface.cpp
+1515763979 source:f:\大三上\introduction to computing\the-maze-project\interface.cpp
 	"Interface.h"
 	<iostream>
 
-1515760996 f:\大三上\introduction to computing\the-maze-project\interface.h
+1515773846 f:\大三上\introduction to computing\the-maze-project\interface.h
 	"../Graph_lib/Window.h"
 	"../Graph_lib/Point.h"
 	"../Graph_lib/GUI.h"
 	"../Graph_lib/fltk.h"
-	"../Graph_lib/Vector_ref.h"
+	"Vector_ref.h"
 	<string>
 	<iostream>
 	<vector>
@@ -216,4 +216,7 @@
 1515761887 source:f:\大三上\introduction to computing\the-maze-project\test.cpp
 	<iostream>
 	"Interface.h"
+
+1514800352 f:\大三上\introduction to computing\the-maze-project\vector_ref.h
+	<vector>
 

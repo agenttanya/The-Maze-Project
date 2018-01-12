@@ -5,7 +5,7 @@
 #include "../Graph_lib/Point.h"
 #include "../Graph_lib/GUI.h"
 #include "../Graph_lib/fltk.h"
-#include "../Graph_lib/Vector_ref.h"
+#include "Vector_ref.h"
 #include<string>
 #include<iostream>
 #include<vector>
