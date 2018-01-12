@@ -15,6 +15,7 @@ int corrx{0};
 int corry{0};
 
 const int ball_d {5};
+
 void GA::tracing(){
 for(int i=0; i<trace.size();++i)
     { if(trace[i].dir=="right")
@@ -43,6 +44,7 @@ for(int i=0; i<trace.size();++i)
              arrow[arrow.size()-1].set_color(Color::dark_blue); }
     }
 }
+
 //ren 就是renewal，这个函数用来实现线段集的更新，在构造函数，和显示部分区域的函数spar中都用到了。（by KYA)
 void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, int rcox,int rcoy,int z)
 {
@@ -58,6 +60,7 @@ void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Gra
             }
         }}
 }
+
 //我想要用这个Button去显示全图、用户之前的轨迹和正确的走法。目前只实现了全图。（by KYA)
 void GameWindow::solution(){
     ClGA.tracing();
@@ -84,6 +87,7 @@ void GameWindow::solution(){
      for (int i=0;i<ClGA.l2.size();++i){
         attach(ClGA.l2[i]);
     }   Fl::redraw();}
+
 //在不同UI间切换
 GameWindow::SwitchTo(UI& Next){
     if (CurrUI!=nullptr){
@@ -156,6 +160,7 @@ GA::GA():
     ren(l1,l2,0,0,5);
 
 }
+
 //show part的简写，这里就是让线段集自己擦掉自己，然后再自己更新，显示小球附近5*5格子的区域，因为小球在移动到四个边界位置的时候，
 //区域必须有所不同，所以这里把整个迷宫分成10个区域，不同的区域显示不同的部分。走到最后一个格子（19,19）的时候，显示全部区域以及文字“you make it”。
 void GameWindow::spar()

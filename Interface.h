@@ -1,11 +1,11 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include "Window.h"
-#include "Point.h"
-#include "GUI.h"
-#include "fltk.h"
-#include "Vector_ref.h"
+#include "../Graph_lib/Window.h"
+#include "../Graph_lib/Point.h"
+#include "../Graph_lib/GUI.h"
+#include "../Graph_lib/fltk.h"
+#include "../Graph_lib/Vector_ref.h"
 #include<string>
 #include<iostream>
 #include<vector>
@@ -14,8 +14,8 @@ using namespace Graph_lib;
 
 const int h {20};
 const int w {20};
-<<<<<<< HEAD
 const char diff {'H'};
+
 struct Track
 {
   int x{0};
@@ -24,10 +24,8 @@ struct Track
   Track();
   Track(int xx,int yy, string t):x{xx},y{yy},dir{t}{};
 };
-=======
-const char diff {'E'};
 
->>>>>>> f151da12ac137a9cbbce2d69abbd061882a2f58c
+
 //游戏区域（Game Area的缩写）
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
 struct GA {
