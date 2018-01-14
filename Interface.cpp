@@ -47,18 +47,66 @@ for(int i=0; i<trace.size();++i)
 
 //ren 就是renewal，这个函数用来实现线段集的更新，在构造函数，和显示部分区域的函数spar中都用到了。（by KYA)
 void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, int rcox,int rcoy,int z)
-{
+{       int wallse{0};
+        int wallsn{0};
+    // find the coordinates of the walls.
+        for (int i=0;i<M.width;++i){
+        for (int j=0; j<M.height;++j){
+            if (M.block_list[i][j].east==1 && (i!=M.width-1||j!=M.height-1)){
+              wallse += 1 ;
+              if(M.pass_gate1==wallse-1||M.pass_gate2==wallse-1){
+               if (M.pass_gate1 == wallse-1){
+                M.pg1east = true;
+                M.pg1corx = i;
+                M.pg1cory = j;
+               }
+               else{
+                M.pg2east = true;
+                M.pg2corx = i;
+                M.pg2cory = j;
+               }
+             }
+            }
+            if (M.block_list[i][j].north==1){
+              wallsn += 1;
+              if(M.pass_gate1-M.num_walls0+1==wallsn-1||M.pass_gate2-M.num_walls0+1==wallsn-1){
+               if (M.pass_gate1-M.num_walls0+1 == wallsn-1){
+                M.pg1corx = i;
+                M.pg1cory = j;
+               }
+               else {
+                M.pg2corx = i;
+                M.pg2cory = j;
+               }
+              }
+            }
+           }
+          }
      for (int i=rcox;i<rcox+z;++i){
         for (int j=rcoy;j<rcoy+z;++j) {
             if (M.block_list[i][j].east==1 && (i!=rcox+z-1||j!=rcoy+z-1)){
-          l1.push_back(new Graph_lib::Line{Point{x0+(i+1)*d,y0+d*j},Point{x0+d*(i+1),y0+d*(j+1)}});
+              l1.push_back(new Graph_lib::Line{Point{x0+(i+1)*d,y0+d*j},Point{x0+d*(i+1),y0+d*(j+1)}});
               l1[l1.size()-1].set_style(Line_style{Line_style::solid, 2});
-            }
+              if ( (i == M.pg1corx && j == M.pg1cory && M.pg1east )|| (i == M.pg2corx && j == M.pg2cory && M.pg2east)) l1[l1.size()-1].set_color(Color::red);
+              }
+
             if (M.block_list[i][j].north==1){
               l2.push_back(new Graph_lib::Line{Point{x0+(i+1)*d,y0+(j+1)*d},Point{x0+d*i,y0+d*(j+1)}});
               l2[l2.size()-1].set_style(Line_style{Line_style::solid, 2});
+              if ( (i == M.pg1corx && j == M.pg1cory && !M.pg1east )|| (i == M.pg2corx && j == M.pg2cory && !M.pg2east)) l2[l2.size()-1].set_color(Color::red);
             }
-        }}
+        }
+}
+
+cout<<M.pg2corx<<'\n';
+cout<<M.pg1corx<<'\n';
+cout<<M.pg2cory<<'\n';
+cout<<M.pg1cory<<'\n';
+cout<<M.pass_gate1<<'\n';
+cout<<M.pass_gate2<<'\n';
+cout<<M.pg1east<<'\n';
+cout<<M.pg2east<<'\n';
+
 }
 
 //我想要用这个Button去显示全图、用户之前的轨迹和正确的走法。目前只实现了全图。（by KYA)
@@ -159,6 +207,7 @@ GA::GA():
     b2.set_style(Line_style{Line_style::solid,2});
     ren(l1,l2,0,0,5);
 
+
 }
 
 //show part的简写，这里就是让线段集自己擦掉自己，然后再自己更新，显示小球附近5*5格子的区域，因为小球在移动到四个边界位置的时候，
@@ -208,20 +257,100 @@ bool GameWindow::handle_keydown(int key)
         corry -= 1;
         dir="up";
     }
+    else if(!ClGA.M.pg1east || !ClGA.M.pg2east){
+    if (!ClGA.M.pg1east){
+        if(corrx == ClGA.M.pg1corx && corry == ClGA.M.pg1cory-1){
+        ClGA.ball.move((ClGA.M.pg2corx-ClGA.M.pg1corx)*d,(ClGA.M.pg2cory-ClGA.M.pg1cory+1)*d);
+        corrx = ClGA.M.pg2corx;
+        corry = ClGA.M.pg2cory;
+        ret = true;
+        dir = "up";
+        }
+    }
+    if (!ClGA.M.pg2east){
+        if(corrx == ClGA.M.pg2corx && corry == ClGA.M.pg2cory-1){
+        ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory+1)*d);
+        corrx = ClGA.M.pg1corx;
+        corry = ClGA.M.pg1cory;
+        ret = true;
+        dir = "up";
+        }
+    }
+    }
     break;
   case FL_Down:
     if (ClGA.M.block_list[corrx][corry].north == 0 && corry !=ClGA.M.height-1)
     {ClGA.ball.move(0, d); ret = true;corry += 1;
     dir="down";}
+    else if (!ClGA.M.pg1east || !ClGA.M.pg2east){
+    if (!ClGA.M.pg1east){
+        if(corrx == ClGA.M.pg1corx && corry == ClGA.M.pg1cory){
+        ClGA.ball.move((ClGA.M.pg2corx-ClGA.M.pg1corx)*d,(ClGA.M.pg2cory-ClGA.M.pg1cory)*d);
+        corrx = ClGA.M.pg2corx;
+        corry = ClGA.M.pg2cory;
+        ret = true;
+        dir = "down";
+        }
+    }
+    if (!ClGA.M.pg2east){
+        if(corrx == ClGA.M.pg2corx && corry == ClGA.M.pg2cory){
+        ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory)*d);
+        corrx = ClGA.M.pg1corx;
+        corry = ClGA.M.pg1cory;
+        ret = true;
+        dir = "down";
+        }
+    }
+    }
     break;
   case FL_Left:
     if (ClGA.M.block_list[corrx-1][corry].east == 0 && corrx != 0)
     {ClGA.ball.move(-d, 0); ret = true;corrx -= 1;dir="left";
     }
+    else if(ClGA.M.pg1east || ClGA.M.pg2east){
+    if (ClGA.M.pg1east){
+        if(corrx == ClGA.M.pg1corx+1 && corry == ClGA.M.pg1cory){
+        ClGA.ball.move((ClGA.M.pg2corx-ClGA.M.pg1corx-1)*d,(ClGA.M.pg2cory-ClGA.M.pg1cory)*d);
+        corrx = ClGA.M.pg2corx;
+        corry = ClGA.M.pg2cory;
+        ret = true;
+        dir = "left";
+        }
+    }
+    if (ClGA.M.pg2east){
+        if(corrx == ClGA.M.pg2corx+1 && corry == ClGA.M.pg2cory){
+        ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx-1)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory)*d);
+        corrx = ClGA.M.pg1corx;
+        corry = ClGA.M.pg1corx;
+        ret = true;
+        dir = "left";
+        }
+    }
+    }
     break;
   case FL_Right:
     if (ClGA.M.block_list[corrx][corry].east == 0 && corrx != ClGA.M.width-1)
     {ClGA.ball.move(d, 0); ret = true;corrx += 1;dir="right";
+    }
+     else if(ClGA.M.pg1east || ClGA.M.pg2east){
+    if (ClGA.M.pg1east){
+        if(corrx == ClGA.M.pg1corx && corry == ClGA.M.pg1cory){
+        ClGA.ball.move((ClGA.M.pg2corx-ClGA.M.pg1corx)*d,(ClGA.M.pg2cory-ClGA.M.pg1cory)*d);
+        corrx = ClGA.M.pg2corx;
+        corry = ClGA.M.pg2corx;
+        ret = true;
+        dir = "right";
+        }
+    }
+    if (ClGA.M.pg2east){
+        if(corrx == ClGA.M.pg2corx && corry == ClGA.M.pg2cory){
+        ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory)*d);
+        corrx = ClGA.M.pg1corx;
+        corry = ClGA.M.pg1corx;
+        ret = true;
+        dir = "right";
+        }
+    }
     }
     break;
   }

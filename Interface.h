@@ -1,10 +1,6 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
-
-#include "../Graph_lib/Window.h"
-#include "../Graph_lib/Point.h"
 #include "../Graph_lib/GUI.h"
-#include "../Graph_lib/fltk.h"
 #include "Vector_ref.h"
 #include<string>
 #include<iostream>
@@ -14,7 +10,7 @@ using namespace Graph_lib;
 
 const int h {20};
 const int w {20};
-const char diff {'H'};
+const char diff {'N'};
 
 struct Track
 {
@@ -30,7 +26,7 @@ struct Track
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
 struct GA {
     Graph_lib::Circle ball;
-    maze M {w,h,diff};
+    maze M{w,h,diff};
     Graph_lib::Line b1;
     Graph_lib::Line b2;
     Graph_lib::Vector_ref<Graph_lib::Line> l1;

@@ -57,9 +57,9 @@
 		<Unit filename="../Graph_lib/fltk.h" />
 		<Unit filename="Interface.cpp" />
 		<Unit filename="Interface.h" />
+		<Unit filename="main.cpp" />
 		<Unit filename="maze.cpp" />
 		<Unit filename="maze.h" />
-		<Unit filename="test.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
