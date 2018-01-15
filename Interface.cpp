@@ -84,7 +84,7 @@ void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Gra
           }
      for (int i=rcox;i<rcox+z;++i){
         for (int j=rcoy;j<rcoy+z;++j) {
-            if (M.block_list[i][j].east==1 && (i!=rcox+z-1||j!=rcoy+z-1)){
+            if (M.block_list[i][j].east==1){
               l1.push_back(new Graph_lib::Line{Point{x0+(i+1)*d,y0+d*j},Point{x0+d*(i+1),y0+d*(j+1)}});
               l1[l1.size()-1].set_style(Line_style{Line_style::solid, 2});
               if ( (i == M.pg1corx && j == M.pg1cory && M.pg1east )|| (i == M.pg2corx && j == M.pg2cory && M.pg2east)) l1[l1.size()-1].set_color(Color::red);
@@ -97,16 +97,6 @@ void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Gra
             }
         }
 }
-
-cout<<M.pg2corx<<'\n';
-cout<<M.pg1corx<<'\n';
-cout<<M.pg2cory<<'\n';
-cout<<M.pg1cory<<'\n';
-cout<<M.pass_gate1<<'\n';
-cout<<M.pass_gate2<<'\n';
-cout<<M.pg1east<<'\n';
-cout<<M.pg2east<<'\n';
-
 }
 
 //我想要用这个Button去显示全图、用户之前的轨迹和正确的走法。目前只实现了全图。（by KYA)
@@ -259,8 +249,8 @@ bool GameWindow::handle_keydown(int key)
     }
     else if(!ClGA.M.pg1east || !ClGA.M.pg2east){
     if (!ClGA.M.pg1east){
-        if(corrx == ClGA.M.pg1corx && corry == ClGA.M.pg1cory-1){
-        ClGA.ball.move((ClGA.M.pg2corx-ClGA.M.pg1corx)*d,(ClGA.M.pg2cory-ClGA.M.pg1cory+1)*d);
+        if(corrx == ClGA.M.pg1corx && corry == ClGA.M.pg1cory+1){
+        ClGA.ball.move((ClGA.M.pg2corx-ClGA.M.pg1corx)*d,(ClGA.M.pg2cory-ClGA.M.pg1cory-1)*d);
         corrx = ClGA.M.pg2corx;
         corry = ClGA.M.pg2cory;
         ret = true;
@@ -268,8 +258,8 @@ bool GameWindow::handle_keydown(int key)
         }
     }
     if (!ClGA.M.pg2east){
-        if(corrx == ClGA.M.pg2corx && corry == ClGA.M.pg2cory-1){
-        ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory+1)*d);
+        if(corrx == ClGA.M.pg2corx && corry == ClGA.M.pg2cory+1){
+        ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory-1)*d);
         corrx = ClGA.M.pg1corx;
         corry = ClGA.M.pg1cory;
         ret = true;
@@ -321,7 +311,7 @@ bool GameWindow::handle_keydown(int key)
         if(corrx == ClGA.M.pg2corx+1 && corry == ClGA.M.pg2cory){
         ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx-1)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory)*d);
         corrx = ClGA.M.pg1corx;
-        corry = ClGA.M.pg1corx;
+        corry = ClGA.M.pg1cory;
         ret = true;
         dir = "left";
         }
@@ -337,7 +327,7 @@ bool GameWindow::handle_keydown(int key)
         if(corrx == ClGA.M.pg1corx && corry == ClGA.M.pg1cory){
         ClGA.ball.move((ClGA.M.pg2corx-ClGA.M.pg1corx)*d,(ClGA.M.pg2cory-ClGA.M.pg1cory)*d);
         corrx = ClGA.M.pg2corx;
-        corry = ClGA.M.pg2corx;
+        corry = ClGA.M.pg2cory;
         ret = true;
         dir = "right";
         }
@@ -346,7 +336,7 @@ bool GameWindow::handle_keydown(int key)
         if(corrx == ClGA.M.pg2corx && corry == ClGA.M.pg2cory){
         ClGA.ball.move((ClGA.M.pg1corx-ClGA.M.pg2corx)*d,(ClGA.M.pg1cory-ClGA.M.pg2cory)*d);
         corrx = ClGA.M.pg1corx;
-        corry = ClGA.M.pg1corx;
+        corry = ClGA.M.pg1cory;
         ret = true;
         dir = "right";
         }
@@ -359,6 +349,7 @@ bool GameWindow::handle_keydown(int key)
       spar();
   Fl::redraw();}
   return ret;
+  cout<<corrx<<'\t'<<corry;
 }
 
 int GameWindow::handle(int event)
