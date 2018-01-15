@@ -27,20 +27,20 @@ struct Track
 //游戏区域（Game Area的缩写）
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
 struct GA {
-    Circle ball;
+    Graph_lib::Circle ball;
     maze M{w,h,diff,pgpairs};
-    Line b1;
-    Line b2;
-    Vector_ref<Line> l1;
-    Vector_ref<Line> l2;
-    Vector_ref<Line> l3;
-    Vector_ref<Circle> circin;
-    Vector_ref<Circle> circout;
-    Vector_ref<Text> arrow;
-    Text t{Point{100,100},"You make it!"};
+    Graph_lib::Line b1;
+    Graph_lib::Line b2;
+    Graph_lib::Vector_ref<Graph_lib::Line> l1;
+    Graph_lib::Vector_ref<Graph_lib::Line> l2;
+    Graph_lib::Vector_ref<Graph_lib::Line> l3;
+    Graph_lib::Vector_ref<Graph_lib::Circle> circin;
+    Graph_lib::Vector_ref<Graph_lib::Circle> circout;
+    Graph_lib::Vector_ref<Graph_lib::Text> arrow;
+    Graph_lib::Text t{Point{100,100},"You make it!"};
     GA();
     vector<Track> trace;
-    void ren(Vector_ref<Line>&l1,Vector_ref<Line>&l2,Vector_ref<Circle>& circin, Vector_ref<Circle>& circout, int rcox,int rcoy,int z);
+    void ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, Graph_lib::Vector_ref<Graph_lib::Circle>& circin, Graph_lib::Vector_ref<Graph_lib::Circle>& circout, int rcox,int rcoy,int z);
     void tracing();
 };
 
