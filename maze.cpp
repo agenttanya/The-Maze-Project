@@ -229,18 +229,12 @@ void maze::random_construct3(){
         division(xm+1,x2,ym+1,y2);
     }
 
-    void maze::passing_gates(){
-            num_of_walls = 0;
-            num_walls0 = 0;
-            pg1east = false;
-            pg2east = false;
-            for(int i=0;i<width;++i){
-                for(int j=0;j<height;++j){
-                    if(block_list[i][j].east==1&&j!=width-1) {num_of_walls += 1; num_walls0 += 1;}
-                    if(block_list[i][j].north==1) num_of_walls += 1;
-                }
-            }
+        PG maze::passing_gates(){
             srand((unsigned)time(NULL));
-            pass_gate1 = rand()%(num_of_walls);
-            pass_gate2 = rand()%(num_of_walls);
+            PG pg;
+            pg.pg1corx = rand()%(width);
+            pg.pg1cory = rand()%(height);
+            pg.pg2corx = rand()%(width);
+            pg.pg2cory = rand()%(height);
+            return pg;
     }

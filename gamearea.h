@@ -12,6 +12,7 @@ using namespace Graph_lib;
 const int h {20};
 const int w {20};
 const char diff {'N'};
+const int pgpairs {1};
 
 struct Track
 {
@@ -27,17 +28,19 @@ struct Track
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
 struct GA {
     Graph_lib::Circle ball;
-    maze M{w,h,diff};
+    maze M{w,h,diff,pgpairs};
     Graph_lib::Line b1;
     Graph_lib::Line b2;
     Graph_lib::Vector_ref<Graph_lib::Line> l1;
     Graph_lib::Vector_ref<Graph_lib::Line> l2;
     Graph_lib::Vector_ref<Graph_lib::Line> l3;
+    Graph_lib::Vector_ref<Graph_lib::Circle> circin;
+    Graph_lib::Vector_ref<Graph_lib::Circle> circout;
     Graph_lib::Vector_ref<Graph_lib::Text> arrow;
     Graph_lib::Text t{Point{100,100},"You make it!"};
     GA();
     vector<Track> trace;
-    void ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, int rcox,int rcoy,int z);
+    void ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, Graph_lib::Vector_ref<Graph_lib::Circle>& circin, Graph_lib::Vector_ref<Graph_lib::Circle>& circout, int rcox,int rcoy,int z);
     void tracing();
 };
 

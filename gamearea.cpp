@@ -33,55 +33,30 @@ for(int i=0; i<trace.size();++i)
 
 
 //ren 就是renewal，这个函数用来实现线段集的更新，在构造函数，和显示部分区域的函数spar中都用到了。（by KYA)
-void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, int rcox,int rcoy,int z)
-{       int wallse{0};
-        int wallsn{0};
+void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, Graph_lib::Vector_ref<Graph_lib::Circle>& circin, Graph_lib::Vector_ref<Graph_lib::Circle>& circout ,int rcox,int rcoy,int z)
     // find the coordinates of the walls.
-        for (int i=0;i<M.width;++i){
-        for (int j=0; j<M.height;++j){
-            if (M.block_list[i][j].east==1 && (i!=M.width-1||j!=M.height-1)){
-              wallse += 1 ;
-              if(M.pass_gate1==wallse-1||M.pass_gate2==wallse-1){
-               if (M.pass_gate1 == wallse-1){
-                M.pg1east = true;
-                M.pg1corx = i;
-                M.pg1cory = j;
-               }
-               else{
-                M.pg2east = true;
-                M.pg2corx = i;
-                M.pg2cory = j;
-               }
-             }
-            }
-            if (M.block_list[i][j].north==1){
-              wallsn += 1;
-              if(M.pass_gate1-M.num_walls0+1==wallsn-1||M.pass_gate2-M.num_walls0+1==wallsn-1){
-               if (M.pass_gate1-M.num_walls0+1 == wallsn-1){
-                M.pg1corx = i;
-                M.pg1cory = j;
-               }
-               else {
-                M.pg2corx = i;
-                M.pg2cory = j;
-               }
-              }
-            }
-           }
-          }
+  {
+
      for (int i=rcox;i<rcox+z;++i){
         for (int j=rcoy;j<rcoy+z;++j) {
             if (M.block_list[i][j].east==1){
               l1.push_back(new Graph_lib::Line{Point{x0+(i+1)*d,y0+d*j},Point{x0+d*(i+1),y0+d*(j+1)}});
               l1[l1.size()-1].set_style(Line_style{Line_style::solid, 2});
-              if ( (i == M.pg1corx && j == M.pg1cory && M.pg1east )|| (i == M.pg2corx && j == M.pg2cory && M.pg2east)) l1[l1.size()-1].set_color(Color::red);
               }
 
             if (M.block_list[i][j].north==1){
               l2.push_back(new Graph_lib::Line{Point{x0+(i+1)*d,y0+(j+1)*d},Point{x0+d*i,y0+d*(j+1)}});
               l2[l2.size()-1].set_style(Line_style{Line_style::solid, 2});
-              if ( (i == M.pg1corx && j == M.pg1cory && !M.pg1east )|| (i == M.pg2corx && j == M.pg2cory && !M.pg2east)) l2[l2.size()-1].set_color(Color::red);
             }
+           for (int k=0; k<M.PG_list.size(); ++k){
+           if((M.PG_list[k].pg1corx == i && M.PG_list[k].pg1cory == j) ||(M.PG_list[k].pg2corx == i && M.PG_list[k].pg2cory == j)){
+                circin.push_back(new Graph_lib::Circle{Point{x0+d/2+i*d,y0+d/2+j*d}, d/3});
+                circin[circin.size()-1].set_color(Color::blue);
+                circin[circin.size()-1].set_fill_color(Color::blue);
+                circout.push_back(new  Graph_lib::Circle{Point{x0+d/2+i*d,y0+d/2+j*d},d/2});
+                circout[circout.size()-1].set_color(Color::blue);
+                }
+           }
         }
 }
 }
@@ -96,5 +71,7 @@ GA::GA():
     ball.set_color(Color::red);
     b1.set_style(Line_style{Line_style::solid,2});
     b2.set_style(Line_style{Line_style::solid,2});
-    ren(l1,l2,0,0,5);
+    ren(l1,l2,circin,circout,0,0,5);
+
+
 }
