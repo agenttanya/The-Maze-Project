@@ -34,7 +34,7 @@ struct Track
 struct GA {
     Circle ball;
     maze M{width,height,diff,pgpairs};
-    Time t0{0,width*height/400,0};
+    Time t0{width*height/5};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
     //Vector_ref<Line> l3;

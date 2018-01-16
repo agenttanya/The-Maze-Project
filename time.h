@@ -12,11 +12,11 @@ public:
    int min;
    int sec;
    string timeline{"start"};
-   Time(int a,int b,int c)
+   Time(int x)
     {
-        hour=a;
-        min=b;
-        sec=c;
+        hour=0;
+        min=x/60;
+        sec=x%60;
     }
    void show();
 
