@@ -16,7 +16,6 @@ void Time::show()
         if(sec<10) os<< 0;
          os<< sec << flush;
          timeline=os.str().c_str();
-         cout<<timeline<<endl;
        }
 
 //////////////////////////////////////////

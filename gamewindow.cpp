@@ -251,11 +251,9 @@ int GameWindow::handle(int event)
 
 
 void  GameWindow::timeout() {
-        detach(ClGA.e);
       if(ClGA.t0.sec==0&&ClGA.t0.min==0&&ClGA.t0.hour==0)return;
        ClGA.t0.run();
       ClGA.e.set_label(ClGA.t0.timeline);
-       attach(ClGA.e);
        Fl::redraw();
     Fl::repeat_timeout(1, cb_timeout, this);
   }
