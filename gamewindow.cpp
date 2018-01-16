@@ -31,7 +31,7 @@ void GameWindow::solution(){
     ClGA.l2.erase();
     ClGA.circin.erase();
     ClGA.circout.erase();
-    ClGA.ren(0,0,20);
+    ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,20);
      for (int i=0;i<ClGA.l1.size();++i){
         attach(ClGA.l1[i]);
     }
@@ -140,21 +140,21 @@ void GameWindow::spar()
     ClGA.l2.erase();
     ClGA.circin.erase();
     ClGA.circout.erase();
-    if(corrx<2||corry<2)ClGA.ren(corrx,corry,5);
-    else if(corry==0&&corrx>=2&&corrx<18)ClGA.ren(corrx-2,corry,5);
-    else if(corry==1&&corrx>=2&&corrx<18)ClGA.ren(corrx-2,corry-1,5);//上方长条
-     else if(corrx==0&&corry>=2&&corry<18)ClGA.ren(corrx,corry-2,5);
-     else if(corrx==1&&corry>=2&&corry<18)ClGA.ren(corrx-1,corry-2,5);//左边长条
-        else if(corrx==18&&corry>=2&&corry<18)ClGA.ren(corrx-3,corry-2,5);
-        else if(corrx==19&&corry>=2&&corry<18)ClGA.ren(corrx-4,corry-2,5);//右边长条
-          else if(corrx>=2&&corrx<18&&corry==18)ClGA.ren(corrx-2,corry-3,5);
-          else if(corrx>=2&&corrx<18&&corry==19)ClGA.ren(corrx-2,corry-4,5);//下边长条
-             else if(corrx<2&&corry<2)ClGA.ren(0,0,5);//左上方块
-               else if(corrx<2&&corry>17)ClGA.ren(0,15,5);//左下方块
-                   else if(corrx>17&&corry>17&&(corrx!=19||corry!=19))ClGA.ren(15,15,5);//右下方块
-                      else if(corrx>17&&corry<2)ClGA.ren(15,0,5);//右上方块
-                         else if(corrx==19&&corry==19)ClGA.ren(0,0,20);//终点
-                            else ClGA.ren(corrx-2,corry-2,5);//中间方块
+    if(corrx<2||corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx,corry,5);
+    else if(corry==0&&corrx>=2&&corrx<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry,5);
+    else if(corry==1&&corrx>=2&&corrx<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-1,5);//上方长条
+     else if(corrx==0&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx,corry-2,5);
+     else if(corrx==1&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-1,corry-2,5);//左边长条
+        else if(corrx==18&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-3,corry-2,5);
+        else if(corrx==19&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-4,corry-2,5);//右边长条
+          else if(corrx>=2&&corrx<18&&corry==18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-3,5);
+          else if(corrx>=2&&corrx<18&&corry==19)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-4,5);//下边长条
+             else if(corrx<2&&corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,5);//左上方块
+               else if(corrx<2&&corry>17)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,15,5);//左下方块
+                   else if(corrx>17&&corry>17&&(corrx!=19||corry!=19))ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,15,15,5);//右下方块
+                      else if(corrx>17&&corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,15,0,5);//右上方块
+                         else if(corrx==19&&corry==19)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,20);//终点
+                            else ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-2,5);//中间方块
         for (int i=0;i<ClGA.l1.size();++i){
         attach(ClGA.l1[i]);
     }

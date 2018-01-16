@@ -40,7 +40,7 @@ struct GA {
     Text t{Point{100,100},"You make it!"};
     GA();
     vector<Track> trace;
-    void ren(int rcox,int rcoy,int z);
+    void ren(Vector_ref<Line>&l1,Vector_ref<Line>&l2,Vector_ref<Circle>& circin, Vector_ref<Circle>& circout, int rcox,int rcoy,int z);
     void tracing();
 };
 
