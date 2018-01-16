@@ -33,7 +33,7 @@ for(int i=0; i<trace.size();++i)
 
 
 //ren 就是renewal，这个函数用来实现线段集的更新，在构造函数，和显示部分区域的函数spar中都用到了。（by KYA)
-void GA::ren(Graph_lib::Vector_ref<Graph_lib::Line>&l1,Graph_lib::Vector_ref<Graph_lib::Line>&l2, Graph_lib::Vector_ref<Graph_lib::Circle>& circin, Graph_lib::Vector_ref<Graph_lib::Circle>& circout ,int rcox,int rcoy,int z)
+void GA::ren(int rcox,int rcoy,int z)
     // find the coordinates of the walls.
   {
 
@@ -71,7 +71,7 @@ GA::GA():
     ball.set_color(Color::red);
     b1.set_style(Line_style{Line_style::solid,2});
     b2.set_style(Line_style{Line_style::solid,2});
-    ren(l1,l2,circin,circout,0,0,5);
+    ren(0,0,5);
 
 
 }
