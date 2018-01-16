@@ -2,11 +2,10 @@
 #include "gamewindow.h"
 #include"gamearea.h"
 #include<iostream>
-using Graph_lib::Point;
-using Graph_lib::Window;
+using namespace Graph_lib;
 
 
-
+/*
 //我想要用这个Button去显示全图、用户之前的轨迹和正确的走法。目前只实现了全图。（by KYA)
 void GameWindow::solution(){
     ClGA.tracing();
@@ -34,7 +33,7 @@ void GameWindow::solution(){
     ClGA.l2.erase();
     ClGA.circin.erase();
     ClGA.circout.erase();
-    ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,20);
+    ClGA.renewal(0,0,20);
      for (int i=0;i<ClGA.l1.size();++i){
         attach(ClGA.l1[i]);
     }
@@ -47,8 +46,9 @@ void GameWindow::solution(){
      for (int i=0;i<ClGA.circout.size();++i){
         attach(ClGA.circout[i]);
     }
-     Fl::redraw();}
-
+     Fl::redraw();
+}
+*/
 
 //在不同UI间切换
 GameWindow::SwitchTo(UI& Next){
@@ -67,8 +67,6 @@ GameWindow::SwitchTo(UI& Next){
 GameWindow::ShowClGA(){
     attach(ClGA.ball);
     attach(ClGA.e);
-   // attach(ClGA.b1);
-    //attach(ClGA.b2);
     for (int i=0;i<ClGA.l1.size();++i){
         attach(ClGA.l1[i]);
     }
@@ -86,8 +84,6 @@ GameWindow::ShowClGA(){
 //隐藏经典游戏区域
 GameWindow::HideClGA(){
     detach(ClGA.ball);
-    //detach(ClGA.b1);
-    //detach(ClGA.b2);
     for (int i=0;i<ClGA.l1.size();++i){
         detach(ClGA.l1[i]);
     }
@@ -113,10 +109,10 @@ GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
 
     Button* quit_button2=new Button {Point{x_max()-70, 0}, 70, 20, "Quit", cb_quit};
     Button* back_button=new Button {Point{x_max()-70,20}, 70, 20, "Back", cb_back};
-    Button* solution_button=new Button {Point{x_max()-70,40}, 70, 20, "solution", cb_solution};
+    //Button* solution_button=new Button {Point{x_max()-70,40}, 70, 20, "solution", cb_solution};
     GameUI.Buttons.push_back(quit_button2);
     GameUI.Buttons.push_back(back_button);
-    GameUI.Buttons.push_back(solution_button);
+    //GameUI.Buttons.push_back(solution_button);
     //当前界面为“空”
     CurrUI=nullptr;
     SwitchTo(MainUI);
@@ -144,21 +140,7 @@ void GameWindow::spar()
     ClGA.l2.erase();
     ClGA.circin.erase();
     ClGA.circout.erase();
-    if(corrx<2||corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx,corry,5);
-    else if(corry==0&&corrx>=2&&corrx<gamearea::w-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry,5);
-    else if(corry==1&&corrx>=2&&corrx<gamearea::w-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-1,5);//上方长条
-     else if(corrx==0&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx,corry-2,5);
-     else if(corrx==1&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-1,corry-2,5);//左边长条
-        else if(corrx==gamearea::w-2&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-3,corry-2,5);
-        else if(corrx==gamearea::w-1&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-4,corry-2,5);//右边长条
-          else if(corrx>=2&&corrx<gamearea::w-2&&corry==gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-3,5);
-          else if(corrx>=2&&corrx<gamearea::w-2&&corry==gamearea::h-1)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-4,5);//下边长条
-             else if(corrx<2&&corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,5);//左上方块
-               else if(corrx<2&&corry>gamearea::h-3)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,gamearea::w-5,5);//左下方块
-                   else if(corrx>gamearea::w-3&&corry>gamearea::h-3&&(corrx!=gamearea::w-1||corry!=gamearea::h-1))ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,gamearea::w-5,gamearea::h-5,5);//右下方块
-                      else if(corrx>gamearea::w-3&&corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,gamearea::w-5,0,5);//右上方块
-                         else if(corrx==gamearea::w-1&&corry==gamearea::h-1)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,gamearea::w);//终点
-                            else ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-2,5);//中间方块
+        ClGA.renewal(corrx , corry);
         for (int i=0;i<ClGA.l1.size();++i){
         attach(ClGA.l1[i]);
     }
@@ -170,7 +152,7 @@ void GameWindow::spar()
         for (int i=0;i<ClGA.circout.size();++i){
             attach(ClGA.circout[i]);
         }
-        if(corrx==19&&corry==19)attach(ClGA.t);
+        if(corrx==width-1&&corry==height-1)attach(ClGA.t);
 
     }
 
@@ -181,7 +163,6 @@ bool GameWindow::handle_keydown(int key)
   switch (key) {
   case FL_Up:
     if (ClGA.M.block_list[corrx][corry-1].north == 0 && corry != 0){
-        ClGA.ball.move(0, -d);
         ret = true;
         corry -= 1;
         dir="up";
@@ -189,34 +170,40 @@ bool GameWindow::handle_keydown(int key)
     break;
   case FL_Down:
     if (ClGA.M.block_list[corrx][corry].north == 0 && corry !=ClGA.M.height-1)
-    {ClGA.ball.move(0, d); ret = true;corry += 1;
-    dir="down";}
+    {
+        ret = true;
+        corry += 1;
+        dir="down";
+    }
     break;
   case FL_Left:
     if (corrx != 0&&ClGA.M.block_list[corrx-1][corry].east == 0  )
-    {ClGA.ball.move(-d, 0); ret = true;corrx -= 1;dir="left";
+    {
+        ret = true;
+        corrx -= 1;
+        dir="left";
     }
     break;
   case FL_Right:
     if (ClGA.M.block_list[corrx][corry].east == 0 && corrx != ClGA.M.width-1)
-    {ClGA.ball.move(d, 0); ret = true;corrx += 1;dir="right";
+    {
+        ret = true;
+        corrx += 1;
+        dir="right";
     }
     break;
   case FL_Enter:
     for(int i=0; i<ClGA.M.PG_list.size();++i){
     PG pg;
     pg = ClGA.M.PG_list[i];
-    cout<<pg.pg1corx;
-    cout<<pg.pg2corx;
     if ((pg.pg1corx == corrx && pg.pg1cory == corry) || (pg.pg2corx == corrx && pg.pg2cory == corry)){
     if  (pg.pg1corx == corrx && pg.pg1cory == corry){
-        ClGA.ball.move((pg.pg2corx-pg.pg1corx)*d,(pg.pg2cory-pg.pg1cory)*d);
         corrx = pg.pg2corx;
         corry = pg.pg2cory;
         ret = true;
     }
     else
-    {   ClGA.ball.move((pg.pg1corx-pg.pg2corx)*d,(pg.pg1cory-pg.pg2cory)*d);
+    {
         corrx = pg.pg1corx;
         corry = pg.pg1cory;
         ret = true;
@@ -226,11 +213,13 @@ bool GameWindow::handle_keydown(int key)
     break;
 }
   if (ret) {
-     ClGA.trace.push_back(gamearea::Track{corrx,corry,dir});
+     //ClGA.trace.push_back(Track{corrx,corry,dir});
       spar();
   Fl::redraw();}
   return ret;
 }
+
+/*
 void GameWindow::clock()
 {
       long t=time(NULL);
@@ -241,7 +230,7 @@ void GameWindow::clock()
       attach(ClGA.e);
       Fl::redraw();}
 
-}
+}*/
 
 int GameWindow::handle(int event)
 {
