@@ -251,25 +251,15 @@ int GameWindow::handle(int event)
 
 
 void  GameWindow::timeout() {
-
         detach(ClGA.e);
-        std::cout<<ClGA.t0.min;
       if(ClGA.t0.sec==0&&ClGA.t0.min==0&&ClGA.t0.hour==0)return;
-      std::cout<<"timeout";
        ClGA.t0.run();
-       std::cout<< ClGA.t0.timeline<<endl;
       ClGA.e.set_label(ClGA.t0.timeline);
        attach(ClGA.e);
        Fl::redraw();
-    Fl::repeat_timeout(0.1, cb_timeout, this);
+    Fl::repeat_timeout(1, cb_timeout, this);
   }
 
 void  GameWindow::manage_timeout() {
-   // bool started=true;
-   // if (started) {
-      Fl::add_timeout(0.1, cb_timeout, this);
-      std::cout<<"manage_timeout";
-    //} else {
-     // Fl::remove_timeout(cb_timeout, this);
-
+      Fl::add_timeout(1, cb_timeout, this);
   }

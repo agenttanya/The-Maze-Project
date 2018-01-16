@@ -22,9 +22,6 @@ void Time::show()
 //////////////////////////////////////////
  void Time::tick()
       {
-           long t=time(NULL);
-          while(time(NULL)==t);
-
           if(sec==0&&min==0&&hour==0)return;
 
             if(--sec<0)
@@ -45,6 +42,4 @@ void Time::show()
      {
             tick();
             show();
-
-
      }
