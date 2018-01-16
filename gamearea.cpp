@@ -1,7 +1,7 @@
 #include "gamearea.h"
 #include"gamewindow.h"
 #include<iostream>
-
+namespace gamearea{
 void GA::tracing(){
 for(int i=0; i<trace.size();++i)
     { if(trace[i].dir=="right")
@@ -74,4 +74,5 @@ GA::GA():
     ren(l1,l2,circin,circout,0,0,5);
 
 
+}
 }

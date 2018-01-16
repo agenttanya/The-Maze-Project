@@ -20,6 +20,7 @@ const int y0 {80};
 const int d {10};
 
 
+
 const int ball_d {5};
 
 
@@ -34,6 +35,8 @@ struct GameWindow:public Graph_lib::Window{
     int corrx{0};
     int corry{0};
 
+
+
     GameWindow();
 
     //主界面和游戏界面，以及一个切换的函数
@@ -46,10 +49,10 @@ struct GameWindow:public Graph_lib::Window{
 
     //“经典”模式游戏的区域，Cl是Classical的缩写
     //我希望每种模式的游戏区域是不同的类，这个还没做
-    GA ClGA;
+    gamearea::GA ClGA;
     ShowClGA();
     HideClGA();
-
+    void clock();
     //一堆按键的回调函数
     static void cb_quit(void*, void* pw) {
         static_cast<GameWindow*>(pw)->quit();

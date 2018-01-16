@@ -1,7 +1,10 @@
+
 #include "gamewindow.h"
+#include"gamearea.h"
 #include<iostream>
 using Graph_lib::Point;
 using Graph_lib::Window;
+
 
 
 //我想要用这个Button去显示全图、用户之前的轨迹和正确的走法。目前只实现了全图。（by KYA)
@@ -63,6 +66,7 @@ GameWindow::SwitchTo(UI& Next){
 //显示经典游戏区域
 GameWindow::ShowClGA(){
     attach(ClGA.ball);
+    attach(ClGA.e);
    // attach(ClGA.b1);
     //attach(ClGA.b2);
     for (int i=0;i<ClGA.l1.size();++i){
@@ -141,19 +145,19 @@ void GameWindow::spar()
     ClGA.circin.erase();
     ClGA.circout.erase();
     if(corrx<2||corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx,corry,5);
-    else if(corry==0&&corrx>=2&&corrx<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry,5);
-    else if(corry==1&&corrx>=2&&corrx<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-1,5);//上方长条
-     else if(corrx==0&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx,corry-2,5);
-     else if(corrx==1&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-1,corry-2,5);//左边长条
-        else if(corrx==18&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-3,corry-2,5);
-        else if(corrx==19&&corry>=2&&corry<18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-4,corry-2,5);//右边长条
-          else if(corrx>=2&&corrx<18&&corry==18)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-3,5);
-          else if(corrx>=2&&corrx<18&&corry==19)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-4,5);//下边长条
+    else if(corry==0&&corrx>=2&&corrx<gamearea::w-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry,5);
+    else if(corry==1&&corrx>=2&&corrx<gamearea::w-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-1,5);//上方长条
+     else if(corrx==0&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx,corry-2,5);
+     else if(corrx==1&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-1,corry-2,5);//左边长条
+        else if(corrx==gamearea::w-2&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-3,corry-2,5);
+        else if(corrx==gamearea::w-1&&corry>=2&&corry<gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-4,corry-2,5);//右边长条
+          else if(corrx>=2&&corrx<gamearea::w-2&&corry==gamearea::h-2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-3,5);
+          else if(corrx>=2&&corrx<gamearea::w-2&&corry==gamearea::h-1)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-4,5);//下边长条
              else if(corrx<2&&corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,5);//左上方块
-               else if(corrx<2&&corry>17)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,15,5);//左下方块
-                   else if(corrx>17&&corry>17&&(corrx!=19||corry!=19))ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,15,15,5);//右下方块
-                      else if(corrx>17&&corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,15,0,5);//右上方块
-                         else if(corrx==19&&corry==19)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,20);//终点
+               else if(corrx<2&&corry>gamearea::h-3)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,gamearea::w-5,5);//左下方块
+                   else if(corrx>gamearea::w-3&&corry>gamearea::h-3&&(corrx!=gamearea::w-1||corry!=gamearea::h-1))ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,gamearea::w-5,gamearea::h-5,5);//右下方块
+                      else if(corrx>gamearea::w-3&&corry<2)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,gamearea::w-5,0,5);//右上方块
+                         else if(corrx==gamearea::w-1&&corry==gamearea::h-1)ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,0,0,gamearea::w);//终点
                             else ClGA.ren(ClGA.l1,ClGA.l2,ClGA.circin,ClGA.circout,corrx-2,corry-2,5);//中间方块
         for (int i=0;i<ClGA.l1.size();++i){
         attach(ClGA.l1[i]);
@@ -189,7 +193,7 @@ bool GameWindow::handle_keydown(int key)
     dir="down";}
     break;
   case FL_Left:
-    if (ClGA.M.block_list[corrx-1][corry].east == 0 && corrx != 0)
+    if (corrx != 0&&ClGA.M.block_list[corrx-1][corry].east == 0  )
     {ClGA.ball.move(-d, 0); ret = true;corrx -= 1;dir="left";
     }
     break;
@@ -222,10 +226,21 @@ bool GameWindow::handle_keydown(int key)
     break;
 }
   if (ret) {
-     ClGA.trace.push_back(Track{corrx,corry,dir});
+     ClGA.trace.push_back(gamearea::Track{corrx,corry,dir});
       spar();
   Fl::redraw();}
   return ret;
+}
+void GameWindow::clock()
+{
+      long t=time(NULL);
+      while(time(NULL)==t);
+      for(;;){detach(ClGA.e);
+      if(ClGA.t0.sec==0&&ClGA.t0.min==0&&ClGA.t0.hour==0)return;
+      ClGA.t0.run();
+      attach(ClGA.e);
+      Fl::redraw();}
+
 }
 
 int GameWindow::handle(int event)
