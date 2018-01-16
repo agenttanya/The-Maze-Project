@@ -50,8 +50,14 @@ struct GameWindow:public Graph_lib::Window{
     GA ClGA;
     ShowClGA();
     HideClGA();
-    //void clock();
-    //一堆按键的回调函数
+
+    void timeout();
+    void manage_timeout();
+    static void cb_timeout(void* pw) {
+    static_cast<GameWindow*>(pw)->timeout();
+  }
+
+
     static void cb_quit(void*, void* pw) {
         static_cast<GameWindow*>(pw)->quit();
     }

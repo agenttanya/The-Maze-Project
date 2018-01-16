@@ -2,22 +2,21 @@
 #include<string>
 #include<iostream>
 #include<ctime>
+#include<sstream>
 using namespace std;
 void Time::show()
-    {   timeline.clear();
-        cout << '\r';
-        if(hour<10) timeline="0";
-            //cout << 0;
-        //cout << hour << ':';
-        timeline+=hour;timeline+=':';
-        if(min<10) timeline+='0';
-        //cout << 0;
-        //cout << min << ':';
-           timeline+=min;timeline+=':';
-        if(sec<10)
-        //cout << 0;
-        //cout << sec << flush;
-         timeline+=sec;
+    {
+        timeline.clear();
+        ostringstream os;
+        cout<< '\r';
+        if(hour<10) os << 0;
+        os << hour << ':';
+        if(min<10) os<< 0;
+        os << min << ':';
+        if(sec<10) os<< 0;
+         os<< sec << flush;
+         timeline=os.str().c_str();
+         cout<<timeline<<endl;
        }
 
 //////////////////////////////////////////

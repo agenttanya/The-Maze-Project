@@ -11,7 +11,7 @@ public:
    int hour;
    int min;
    int sec;
-   string timeline{" "};
+   string timeline{"start"};
    Time(int a,int b,int c)
     {
         hour=a;

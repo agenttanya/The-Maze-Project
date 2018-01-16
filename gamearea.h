@@ -10,13 +10,13 @@
 #include "time.h"
 using namespace Graph_lib;
 
-const int height {5};
-const int width {5};
+const int height {20};
+const int width {20};
 const char diff {'E'};
 const int pgpairs {1};
 
-const int pgradius1 {5};
-const int pgradius2 {7};
+const int pgradius1 {5};//ÄÚ°ë¾¶
+const int pgradius2 {7};//Íâ°ë¾¶
 
 /*
 struct Track
