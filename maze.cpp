@@ -96,6 +96,7 @@ void maze::random_construct2(){
     vector<coor> visited;
     vector<int> dir;
     int dirtemp;
+    srand((unsigned)time(0));
     coor temp {0,0};
     visited.push_back(temp);
     block_list[temp.x][temp.y].footprint=1;
@@ -161,6 +162,7 @@ int random(int a,int b){
 }
 
 void maze::random_construct3(){
+    srand((unsigned)time(0));
     for (int i=0;i<width;++i){
         block_list.push_back(vector<block> {});
         for (int j=0;j<height;++j){
