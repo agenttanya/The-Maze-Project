@@ -14,9 +14,9 @@ public:
    string timeline{"start"};
    Time(int x)
     {
-        hour=0;
-        min=x/60;
-        sec=x%60;
+        hour=x / 3600;
+        min=(x % 3600) / 60;
+        sec=x % 60;
     }
    void show();
 

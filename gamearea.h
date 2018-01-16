@@ -12,7 +12,7 @@ using namespace Graph_lib;
 
 const int height {20};
 const int width {20};
-const char diff {'E'};
+const char diff {'H'};
 const int pgpairs {1};
 
 const int pgradius1 {5};//�ڰ뾶
