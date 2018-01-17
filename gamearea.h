@@ -10,9 +10,9 @@
 #include "time.h"
 using namespace Graph_lib;
 
-const int height {20};
-const int width {20};
-const char diff {'H'};
+const int height {10};
+const int width {10};
+const char diff {'E'};
 const int pgpairs {20};
 
 const int pgradius1 {5};//内半径
@@ -33,7 +33,9 @@ struct Track
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
 struct GC {
     Circle ball;
-    maze M{width,height,diff};
+    int corrx{0};
+    int corry{0};
+    maze* M;
     Time t0{width*height/5};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
@@ -42,15 +44,18 @@ struct GC {
     Text t{Point{100,100},"You make it!"};
     Text e{Point{30,40},t0.timeline};
     GC();
+    ~GC(){delete M;}
     //vector<Track> trace;
-    void renewal(int rcox,int rcoy);
+    void renewal();
     //void tracing();
 };
 
 //Game Transfer
 struct GT {
     Circle ball;
-    maze M{width,height,diff,pgpairs};
+    int corrx{0};
+    int corry{0};
+    maze* M;
     Time t0{width*height/5};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
@@ -61,8 +66,9 @@ struct GT {
     Text t{Point{100,100},"You make it!"};
     Text e{Point{30,40},t0.timeline};
     GT();
+    ~GT(){delete M;}
     //vector<Track> trace;
-    void renewal(int rcox,int rcoy);
+    void renewal();
     //void tracing();
 };
 

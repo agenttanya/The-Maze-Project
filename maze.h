@@ -41,7 +41,6 @@ struct maze{
             random_construct2();
             break;
         }
-        srand((unsigned)time(NULL));
         for(int i=0;i<pgpairs;++i){
         PG pgate = passing_gates();
         PG_list.push_back(pgate);

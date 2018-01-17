@@ -30,8 +30,7 @@ struct UI{
 //窗口
 struct GameWindow:public Graph_lib::Window{
 
-    int corrx{0};
-    int corry{0};
+
     bool Cl{false};
     bool Tr{false};
 
@@ -51,16 +50,16 @@ struct GameWindow:public Graph_lib::Window{
     GC ClGA;
     ShowClGA();
     HideClGA();
+    void Cltimeout();
+    void Clmanage_timeout();
+    static void cb_Cltimeout(void* pw) {static_cast<GameWindow*>(pw)->Cltimeout();}
 
     GT TrGA;
     ShowTrGA();
     HideTrGA();
-
-    void timeout();
-    void manage_timeout();
-    static void cb_timeout(void* pw) {
-    static_cast<GameWindow*>(pw)->timeout();
-  }
+    void Trtimeout();
+    void Trmanage_timeout();
+    static void cb_Trtimeout(void* pw) {static_cast<GameWindow*>(pw)->Trtimeout();}
 
 
     static void cb_quit(void*, void* pw) {
@@ -108,9 +107,12 @@ struct GameWindow:public Graph_lib::Window{
     void solution();
 */
     //小球的移动
-    bool handle_keydown(int key);
+    bool Clhandle_keydown(int key);
+    bool Trhandle_keydown(int key);
     int handle(int event);
-    void spar();
+
+    void Clspar();
+    void Trspar();
 
 };
 
