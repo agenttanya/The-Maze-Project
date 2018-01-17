@@ -35,14 +35,14 @@ struct GC {
     Circle ball;
     int corrx{0};
     int corry{0};
-    maze* M;
-    Time t0{width*height/5};
+    maze* M {nullptr};
+    Initialize(int w,int d,char diff);
+    Time t0 {0};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
     //Vector_ref<Line> l3;
     //Vector_ref<Text> arrow;
-    Text t{Point{100,100},"You make it!"};
-    Text e{Point{30,40},t0.timeline};
+    Text e{Point{30,40},""};
     GC();
     ~GC(){delete M;}
     //vector<Track> trace;
@@ -55,8 +55,8 @@ struct GT {
     Circle ball;
     int corrx{0};
     int corry{0};
-    maze* M;
-    Time t0{width*height/5};
+    maze* M {nullptr};
+    Time t0 {0};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
     //Vector_ref<Line> l3;
@@ -64,9 +64,10 @@ struct GT {
     Vector_ref<Circle> circout;
     //Vector_ref<Text> arrow;
     Text t{Point{100,100},"You make it!"};
-    Text e{Point{30,40},t0.timeline};
+    Text e{Point{30,40},""};
     GT();
     ~GT(){delete M;}
+    Initialize(int w,int d,char diff, int pgpairs);
     //vector<Track> trace;
     void renewal();
     //void tracing();

@@ -18,7 +18,6 @@ Line* LineCalc (int i,int j,int x ,int y,bool vertical){
 void GC::renewal()
 
   {
-      std::cout<<"Cl renew"<<endl;
      for (int i = max( corrx - VisibleRadius , 0 ) ; i <= min( corrx + VisibleRadius , M->width-1 ) ; ++i ){
         for (int j = max( corry - VisibleRadius , 0 ) ; j <= min( corry + VisibleRadius , M->height-1 ) ; ++j ) {
             if ( M->block_list[i][j].east == 1 ){
@@ -46,21 +45,28 @@ void GC::renewal()
 GC::GC():
     ball{ Point { CenterX , CenterY } , BallWidth }
 {
-    std::cout<<"Input w,h,diff:";
-    int h,w;
-    char diff;
-    std::cin>>w>>h>>diff;
-    M=new maze(w,h,diff);
     ball.set_style(Line_style{Line_style::solid, 1});
     ball.set_fill_color(Color::red);
     ball.set_color(Color::red);
-    renewal();
+}
+
+GC::Initialize(int w, int h, char diff) {
+    t0=Time(w*h/5);
+    e.set_label(t0.timeline);
+    l1.erase();
+    l2.erase();
+    corrx=0;
+    corry=0;
+    if (M!=nullptr) {
+        delete M;
+        M=nullptr;
+    }
+    M=new maze(w,h,diff);
 }
 
 void GT::renewal()
 
   {
-      std::cout<<"Tr renew"<<endl;
      for (int i = max( corrx - VisibleRadius , 0 ) ; i <= min( corrx + VisibleRadius , M->width-1 ) ; ++i ){
         for (int j = max( corry - VisibleRadius , 0 ) ; j <= min( corry + VisibleRadius , M->height-1 ) ; ++j ) {
             if ( M->block_list[i][j].east == 1 ){
@@ -93,16 +99,26 @@ void GT::renewal()
 }
 }
 
+GT::Initialize(int w, int h, char diff, int pgpairs) {
+    t0=Time((pgpairs+1)*w*h/5);
+    e.set_label(t0.timeline);
+    l1.erase();
+    l2.erase();
+    circin.erase();
+    circout.erase();
+    corrx=0;
+    corry=0;
+    if (M!=nullptr) {
+        delete M;
+        M=nullptr;
+    }
+    M=new maze(w,h,diff,pgpairs);
+}
+
 GT::GT():
     ball{ Point { CenterX , CenterY } , BallWidth }
 {
-    std::cout<<"Input w,h,diff,pgpairs:";
-    int h,w,pgpairs;
-    char diff;
-    std::cin>>w>>h>>diff>>pgpairs;
-    M =new maze(w,h,diff,pgpairs);
     ball.set_style(Line_style{Line_style::solid, 1});
     ball.set_fill_color(Color::red);
     ball.set_color(Color::red);
-    renewal();
 }

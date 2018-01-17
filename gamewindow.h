@@ -21,10 +21,14 @@ const int WallWidth {20};//墙宽度
 const int VisibleRadius {5};//显示的半径
 const int BallWidth {5};//球半径
 
+const std::string Vict {"You are victorious!"};
+const std::string Lost {"You have lost!"};
+
 
 //界面（User Interface的缩写），包含了按钮等
 struct UI{
     Vector_ref<Button> Buttons;
+    Vector_ref<In_box> Inboxes;
 };
 
 //窗口
@@ -34,6 +38,7 @@ struct GameWindow:public Graph_lib::Window{
     bool Cl{false};
     bool Tr{false};
 
+    Text Ending {Point{200,20},""};
 
     GameWindow();
 
@@ -42,6 +47,7 @@ struct GameWindow:public Graph_lib::Window{
     UI ClGameUI;//经典游戏界面
     UI PreTrUI;//准备进入传送门游戏界面
     UI TrGameUI;//传送门游戏界面
+    UI EndUI;//结束界面
     UI* CurrUI;//这个指针指向了“当前”界面
     SwitchTo(UI& Next);
 
@@ -91,7 +97,12 @@ struct GameWindow:public Graph_lib::Window{
         static_cast<GameWindow*>(pw)->Classical();
     }
         void Classical(){
+        int w=PreClUI.Inboxes[0].get_int();
+        int h=PreClUI.Inboxes[1].get_int();
+        char diff=PreClUI.Inboxes[2].get_string()[0];
+        ClGA.Initialize(w,h,diff);
         SwitchTo(ClGameUI);
+        ClGA.renewal();
         ShowClGA();
     }
 
@@ -101,7 +112,13 @@ struct GameWindow:public Graph_lib::Window{
         static_cast<GameWindow*>(pw)->Transmission();
     }
     void Transmission(){
+        int w=PreTrUI.Inboxes[0].get_int();
+        int h=PreTrUI.Inboxes[1].get_int();
+        char diff=PreTrUI.Inboxes[2].get_string()[0];
+        int pgpairs=PreTrUI.Inboxes[3].get_int();
+        TrGA.Initialize(w,h,diff,pgpairs);
         SwitchTo(TrGameUI);
+        TrGA.renewal();
         ShowTrGA();
     }
 
@@ -110,6 +127,7 @@ struct GameWindow:public Graph_lib::Window{
         static_cast<GameWindow*>(pw)->back();
     }
     void back() {
+        detach(Ending);
         SwitchTo(MainUI);
         if(Cl == true){
         HideClGA();

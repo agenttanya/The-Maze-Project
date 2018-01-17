@@ -21,8 +21,14 @@ GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
     //准备进入经典游戏界面
     Button* PreClstart_button=new Button {Point{x_max()-90, 20}, 90, 20, "Start", cb_Clstart};//开始经典游戏
     Button* PreClback_button=new Button {Point{x_max()-90, 0}, 90, 20, "Back", cb_back};//返回初始界面
+    In_box* ClWidthBox=new In_box {Point{150,100},50,20,"Width is"};
+    In_box* ClHeightBox=new In_box {Point{150,150},50,20,"Height is"};
+    In_box* ClDiffBox=new In_box {Point{150,200},50,20,"Difficulty is"};
     PreClUI.Buttons.push_back(PreClstart_button);
     PreClUI.Buttons.push_back(PreClback_button);
+    PreClUI.Inboxes.push_back(ClWidthBox);
+    PreClUI.Inboxes.push_back(ClHeightBox);
+    PreClUI.Inboxes.push_back(ClDiffBox);
 
     //经典游戏界面
     Button* Clback_button=new Button {Point{x_max()-90, 20}, 90, 20, "Back", cb_back};//返回初始界面
@@ -31,12 +37,24 @@ GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
     //准备进入传送门游戏界面
     Button* PreTrstart_button=new Button {Point{x_max()-90, 20}, 90, 20, "Start", cb_Trstart};//开始传送门游戏
     Button* PreTrback_button=new Button {Point{x_max()-90, 0}, 90, 20, "Back", cb_back};//返回初始界面
+    In_box* TrWidthBox=new In_box {Point{150,100},50,20,"Width is"};
+    In_box* TrHeightBox=new In_box {Point{150,150},50,20,"Height is"};
+    In_box* TrDiffBox=new In_box {Point{150,200},50,20,"Difficulty is"};
+    In_box* TrPgprBox=new In_box {Point{150,250},50,20,"Number of gate pair is"};
     PreTrUI.Buttons.push_back(PreTrstart_button);
     PreTrUI.Buttons.push_back(PreTrback_button);
+    PreTrUI.Inboxes.push_back(TrWidthBox);
+    PreTrUI.Inboxes.push_back(TrHeightBox);
+    PreTrUI.Inboxes.push_back(TrDiffBox);
+    PreTrUI.Inboxes.push_back(TrPgprBox);
 
     //传送门游戏界面
     Button* Trback_button=new Button {Point{x_max()-90, 20}, 90, 20, "Back", cb_back};//返回初始界面
     TrGameUI.Buttons.push_back(Trback_button);
+
+    //结束界面
+    Button*Endback_button=new Button {Point{x_max()-90, 0}, 90, 20, "Back", cb_back};
+    EndUI.Buttons.push_back(Endback_button);
 
     //当前界面为“空”
     CurrUI=nullptr;
@@ -50,11 +68,17 @@ GameWindow::SwitchTo(UI& Next){
         for (int i=0;i< CurrUI->Buttons.size();++i) {
             detach(CurrUI->Buttons[i]);
         }
+        for (int i=0; i < CurrUI -> Inboxes.size(); ++i) {
+            detach( CurrUI -> Inboxes[i]);
+        }
     }
     CurrUI=&Next;
     for (int i=0;i< CurrUI->Buttons.size();++i) {
         attach(CurrUI->Buttons[i]);
     }
+    for (int i=0; i < CurrUI -> Inboxes.size(); ++i) {
+            attach( CurrUI -> Inboxes[i]);
+        }
 }
 
 //显示经典游戏区域
@@ -82,6 +106,7 @@ GameWindow::HideClGA(){
     for (int i=0;i<ClGA.l2.size();++i){
         detach(ClGA.l2[i]);
     }
+    ClGA.t0=Time {0};
 }
 
 //显示传送门游戏区域
@@ -121,6 +146,7 @@ GameWindow::HideTrGA(){
     for (int i=0;i<TrGA.circout.size();++i){
         detach(TrGA.circout[i]);
     }
+    ClGA.t0=Time {0};
 }
 
 
@@ -142,7 +168,12 @@ void GameWindow::Clspar()
     }
     for (int i=0;i<ClGA.l2.size();++i){
         attach(ClGA.l2[i]);}
-    if(ClGA.corrx==width-1&&ClGA.corry==height-1)attach(ClGA.t);
+    if(ClGA.corrx==ClGA.M->width-1&&ClGA.corry==ClGA.M->height-1){//胜利条件判断
+            HideClGA();
+            SwitchTo(EndUI);
+            Ending.set_label(Vict);
+            attach(Ending);
+    }
 }
 
 void GameWindow::Trspar()
@@ -171,12 +202,17 @@ void GameWindow::Trspar()
     }
     for (int i=0;i<TrGA.l2.size();++i){
         attach(TrGA.l2[i]);}
-    if(TrGA.corrx==width-1&&TrGA.corry==height-1)attach(TrGA.t);
     for (int i=0;i<TrGA.circin.size();++i){
         attach(TrGA.circin[i]);
     }
     for (int i=0;i<TrGA.circout.size();++i){
         attach(TrGA.circout[i]);
+    }
+    if(TrGA.corrx==TrGA.M->width-1&&TrGA.corry==TrGA.M->height-1) {
+            HideTrGA();
+            SwitchTo(EndUI);
+            Ending.set_label(Vict);
+            attach(Ending);
     }
 }
 
@@ -310,7 +346,15 @@ int GameWindow::handle(int event)
 
 
 void  GameWindow::Cltimeout() {
-    if(ClGA.t0.sec==0&&ClGA.t0.min==0&&ClGA.t0.hour==0)return;
+    if(ClGA.t0.sec==0&&ClGA.t0.min==0&&ClGA.t0.hour==0) {
+            if (Cl) {
+                    HideClGA();
+                    SwitchTo(EndUI);
+                    Ending.set_label(Lost);
+                    attach(Ending);
+            }
+            return;
+    }
     ClGA.t0.run();
     ClGA.e.set_label(ClGA.t0.timeline);
     Fl::redraw();
@@ -318,7 +362,15 @@ void  GameWindow::Cltimeout() {
   }
 
   void  GameWindow::Trtimeout() {
-    if(TrGA.t0.sec==0&&TrGA.t0.min==0&&TrGA.t0.hour==0)return;
+    if(TrGA.t0.sec==0&&TrGA.t0.min==0&&TrGA.t0.hour==0){
+            if (Tr) {
+                    HideTrGA();
+                    SwitchTo(EndUI);
+                    Ending.set_label(Lost);
+                    attach(Ending);
+            }
+            return;
+    }
     TrGA.t0.run();
     TrGA.e.set_label(TrGA.t0.timeline);
     Fl::redraw();
