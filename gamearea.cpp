@@ -4,36 +4,6 @@
 #include<algorithm>
 using namespace Graph_lib;
 
-/*
-void GA::tracing(){
-for(int i=0; i<trace.size();++i)
-    { if(trace[i].dir=="right")
-          {  l3.push_back(new Line{Point{x0+(trace[i].x)*d,y0+(trace[i].y+0.5)*d},Point{x0+(trace[i].x-1)*d,y0+(trace[i].y+0.5)*d}});
-             l3[l3.size()-1].set_style(Line_style{Line_style::solid, 1});
-             l3[l3.size()-1].set_color(Color::dark_blue);
-             arrow.push_back(new Text{Point{x0+(trace[i].x-0.5)*d,y0+(trace[i].y+0.5)*d},">"});
-             arrow[arrow.size()-1].set_color(Color::dark_blue); }
-      else if(trace[i].dir=="left")
-          {  l3.push_back(new Line{Point{x0+(trace[i].x+1)*d,y0+(trace[i].y+0.5)*d},Point{x0+(trace[i].x+2)*d,y0+(trace[i].y+0.5)*d}});
-             l3[l3.size()-1].set_style(Line_style{Line_style::solid, 1});
-             l3[l3.size()-1].set_color(Color::dark_blue);
-             arrow.push_back(new Text{Point{x0+(trace[i].x+1.5)*d,y0+(trace[i].y+0.5)*d},"<"});
-             arrow[arrow.size()-1].set_color(Color::dark_blue); }
-      else if(trace[i].dir=="down")
-          {  l3.push_back(new Line{Point{x0+(trace[i].x+0.5)*d,y0+(trace[i].y)*d},Point{x0+(trace[i].x+0.5)*d,y0+(trace[i].y-1)*d}});
-             l3[l3.size()-1].set_style(Line_style{Line_style::solid, 1});
-             l3[l3.size()-1].set_color(Color::dark_blue);
-             arrow.push_back(new Text{Point{x0+(trace[i].x+0.5)*d,y0+(trace[i].y-0.5)*d},"v"});
-             arrow[arrow.size()-1].set_color(Color::dark_blue); }
-      else if(trace[i].dir=="up")
-          {  l3.push_back(new Line{Point{x0+(trace[i].x+0.5)*d,y0+(trace[i].y+1)*d},Point{x0+(trace[i].x+0.5)*d,y0+(trace[i].y+2)*d}});
-             l3[l3.size()-1].set_style(Line_style{Line_style::solid, 1});
-             l3[l3.size()-1].set_color(Color::dark_blue);
-             arrow.push_back(new Text{Point{x0+(trace[i].x+0.5)*d,y0+(trace[i].y+1.5*d)*d},"^"});
-             arrow[arrow.size()-1].set_color(Color::dark_blue); }
-    }
-}
-*/
 
 //根据墙的抽象位置和方向构造合适的line
 Line* LineCalc (int i,int j,int x ,int y,bool vertical){
@@ -45,34 +15,77 @@ Line* LineCalc (int i,int j,int x ,int y,bool vertical){
 }
 
 //ren 就是renewal，这个函数用来实现线段集的更新，在构造函数，和显示部分区域的函数spar中都用到了。（by KYA)
-void GA::renewal(int rcox,int rcoy)
-    // find the coordinates of the walls.
+void GC::renewal()
+
   {
-     for (int i = max( rcox - VisibleRadius , 0 ) ; i <= min( rcox + VisibleRadius , M.width-1 ) ; ++i ){
-        for (int j = max( rcoy - VisibleRadius , 0 ) ; j <= min( rcoy + VisibleRadius , M.height-1 ) ; ++j ) {
-            if ( M.block_list[i][j].east == 1 ){
-              l1.push_back( LineCalc( i , j , rcox , rcoy , 1) );
+      std::cout<<"Cl renew"<<endl;
+     for (int i = max( corrx - VisibleRadius , 0 ) ; i <= min( corrx + VisibleRadius , M->width-1 ) ; ++i ){
+        for (int j = max( corry - VisibleRadius , 0 ) ; j <= min( corry + VisibleRadius , M->height-1 ) ; ++j ) {
+            if ( M->block_list[i][j].east == 1 ){
+              l1.push_back( LineCalc( i , j , corrx , corry , 1) );
               l1[l1.size()-1].set_style(Line_style{Line_style::solid, 2});
               }
 
-            if (M.block_list[i][j].north==1){
-              l2.push_back( LineCalc( i , j , rcox , rcoy , 0) );
+            if (M->block_list[i][j].north==1){
+              l2.push_back( LineCalc( i , j , corrx , corry , 0) );
               l2[l2.size()-1].set_style(Line_style{Line_style::solid, 2});
             }
 
             if ( i == 0 ) {
-              l1.push_back( LineCalc( i - 1 , j , rcox , rcoy , 1) );
+              l1.push_back( LineCalc( i - 1 , j , corrx , corry , 1) );
               l1[l1.size()-1].set_style(Line_style{Line_style::solid, 2});
             }
             if ( j == 0 ) {
-                l2.push_back( LineCalc( i , j - 1 , rcox , rcoy , 0) );
+                l2.push_back( LineCalc( i , j - 1 , corrx , corry , 0) );
               l2[l2.size()-1].set_style(Line_style{Line_style::solid, 2});
             }
-           for (int k=0; k<M.PG_list.size(); ++k){
-           if((M.PG_list[k].pg1corx == i && M.PG_list[k].pg1cory == j) || (M.PG_list[k].pg2corx == i && M.PG_list[k].pg2cory == j)){
-                circin.push_back(new Circle { Point { CenterX + ( i - rcox ) * WallWidth , CenterY + ( j - rcoy ) * WallWidth} , pgradius1 } );
+        }
+}
+}
+
+GC::GC():
+    ball{ Point { CenterX , CenterY } , BallWidth }
+{
+    std::cout<<"Input w,h,diff:";
+    int h,w;
+    char diff;
+    std::cin>>w>>h>>diff;
+    M=new maze(w,h,diff);
+    ball.set_style(Line_style{Line_style::solid, 1});
+    ball.set_fill_color(Color::red);
+    ball.set_color(Color::red);
+    renewal();
+}
+
+void GT::renewal()
+
+  {
+      std::cout<<"Tr renew"<<endl;
+     for (int i = max( corrx - VisibleRadius , 0 ) ; i <= min( corrx + VisibleRadius , M->width-1 ) ; ++i ){
+        for (int j = max( corry - VisibleRadius , 0 ) ; j <= min( corry + VisibleRadius , M->height-1 ) ; ++j ) {
+            if ( M->block_list[i][j].east == 1 ){
+              l1.push_back( LineCalc( i , j , corrx , corry , 1) );
+              l1[l1.size()-1].set_style(Line_style{Line_style::solid, 2});
+              }
+
+            if (M->block_list[i][j].north==1){
+              l2.push_back( LineCalc( i , j , corrx , corry , 0) );
+              l2[l2.size()-1].set_style(Line_style{Line_style::solid, 2});
+            }
+
+            if ( i == 0 ) {
+              l1.push_back( LineCalc( i - 1 , j , corrx , corry , 1) );
+              l1[l1.size()-1].set_style(Line_style{Line_style::solid, 2});
+            }
+            if ( j == 0 ) {
+                l2.push_back( LineCalc( i , j - 1 , corrx , corry , 0) );
+              l2[l2.size()-1].set_style(Line_style{Line_style::solid, 2});
+            }
+           for (int k=0; k<M->PG_list.size(); ++k){
+           if((M->PG_list[k].pg1corx == i && M->PG_list[k].pg1cory == j) || (M->PG_list[k].pg2corx == i && M->PG_list[k].pg2cory == j)){
+                circin.push_back(new Circle { Point { CenterX + ( i - corrx ) * WallWidth , CenterY + ( j - corry ) * WallWidth} , pgradius1 } );
                 circin[circin.size()-1].set_color(Color::blue);//因为实心圆会挡住小球所以用了空心圆
-                circout.push_back(new  Circle { Point { CenterX + ( i - rcox ) * WallWidth , CenterY + ( j - rcoy ) * WallWidth} , pgradius2 } );
+                circout.push_back(new  Circle { Point { CenterX + ( i - corrx ) * WallWidth , CenterY + ( j - corry ) * WallWidth} , pgradius2 } );
                 circout[circout.size()-1].set_color(Color::blue);
                 }
            }
@@ -80,12 +93,16 @@ void GA::renewal(int rcox,int rcoy)
 }
 }
 
-GA::GA():
+GT::GT():
     ball{ Point { CenterX , CenterY } , BallWidth }
 {
+    std::cout<<"Input w,h,diff,pgpairs:";
+    int h,w,pgpairs;
+    char diff;
+    std::cin>>w>>h>>diff>>pgpairs;
+    M =new maze(w,h,diff,pgpairs);
     ball.set_style(Line_style{Line_style::solid, 1});
     ball.set_fill_color(Color::red);
     ball.set_color(Color::red);
-    renewal(0,0);
+    renewal();
 }
-
