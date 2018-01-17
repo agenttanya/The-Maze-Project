@@ -16,15 +16,11 @@ void Time::show()
         if(sec<10) os<< 0;
          os<< sec << flush;
          timeline=os.str().c_str();
-         cout<<timeline<<endl;
        }
 
 //////////////////////////////////////////
  void Time::tick()
       {
-           long t=time(NULL);
-          while(time(NULL)==t);
-
           if(sec==0&&min==0&&hour==0)return;
 
             if(--sec<0)
@@ -45,6 +41,4 @@ void Time::show()
      {
             tick();
             show();
-
-
      }
