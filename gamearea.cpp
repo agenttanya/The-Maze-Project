@@ -46,7 +46,7 @@ void GC::renewal()
 GC::GC():
     ball{ Point { CenterX , CenterY } , BallWidth }
 {
-    std::cout<<"construct Cl";
+    std::cout<<"Input w,h,diff:";
     int h,w;
     char diff;
     std::cin>>w>>h>>diff;
@@ -96,7 +96,7 @@ void GT::renewal()
 GT::GT():
     ball{ Point { CenterX , CenterY } , BallWidth }
 {
-    std::cout<<"construct Tr";
+    std::cout<<"Input w,h,diff,pgpairs:";
     int h,w,pgpairs;
     char diff;
     std::cin>>w>>h>>diff>>pgpairs;

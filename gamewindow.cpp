@@ -5,50 +5,44 @@
 using namespace Graph_lib;
 
 
-/*
-//我想要用这个Button去显示全图、用户之前的轨迹和正确的走法。目前只实现了全图。（by KYA)
-void GameWindow::solution(){
-    ClGA.tracing();
-    for (int i=0;i<ClGA.l3.size();++i){
-        attach(ClGA.l3[i]);
-    }
-    for (int i=0;i<ClGA.arrow.size();++i){
-        attach(ClGA.arrow[i]);
-    }
-    attach(ClGA.b1);
-    attach(ClGA.b2);
-    for (int i=0;i<ClGA.l1.size();++i){
-        detach(ClGA.l1[i]);
-    }
-    for (int i=0;i<ClGA.l2.size();++i){
-        detach(ClGA.l2[i]);
-    }
-    for (int i=0;i<ClGA.circin.size();++i){
-        detach(ClGA.circin[i]);
-    }
-    for (int i=0;i<ClGA.circout.size();++i){
-        detach(ClGA.circout[i]);
-    }
-    ClGA.l1.erase();
-    ClGA.l2.erase();
-    ClGA.circin.erase();
-    ClGA.circout.erase();
-    ClGA.renewal(0,0,20);
-     for (int i=0;i<ClGA.l1.size();++i){
-        attach(ClGA.l1[i]);
-    }
-     for (int i=0;i<ClGA.l2.size();++i){
-        attach(ClGA.l2[i]);
-    }
-     for (int i=0;i<ClGA.circin.size();++i){
-        attach(ClGA.circin[i]);
-    }
-     for (int i=0;i<ClGA.circout.size();++i){
-        attach(ClGA.circout[i]);
-    }
-     Fl::redraw();
+
+GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
+{
+    //在窗口的构造函数里面定义这些按钮，因为所有界面都属于同一个类
+
+    //初始界面
+    Button* quit_button=new Button {Point{x_max()-90, 0}, 90, 20, "Quit", cb_quit};//退出游戏
+    Button* classical_button=new Button {Point{x_max()-90, 20}, 90, 20, "Classical", cb_Classical};//进入经典游戏准备
+    Button* transmission_button=new Button {Point{x_max()-90, 40}, 90, 20, "Transmission", cb_Transmission};//进入传送门游戏准备
+    MainUI.Buttons.push_back(quit_button);
+    MainUI.Buttons.push_back(classical_button);
+    MainUI.Buttons.push_back(transmission_button);
+
+    //准备进入经典游戏界面
+    Button* PreClstart_button=new Button {Point{x_max()-90, 20}, 90, 20, "Start", cb_Clstart};//开始经典游戏
+    Button* PreClback_button=new Button {Point{x_max()-90, 0}, 90, 20, "Back", cb_back};//返回初始界面
+    PreClUI.Buttons.push_back(PreClstart_button);
+    PreClUI.Buttons.push_back(PreClback_button);
+
+    //经典游戏界面
+    Button* Clback_button=new Button {Point{x_max()-90, 20}, 90, 20, "Back", cb_back};//返回初始界面
+    ClGameUI.Buttons.push_back(Clback_button);
+
+    //准备进入传送门游戏界面
+    Button* PreTrstart_button=new Button {Point{x_max()-90, 20}, 90, 20, "Start", cb_Trstart};//开始传送门游戏
+    Button* PreTrback_button=new Button {Point{x_max()-90, 0}, 90, 20, "Back", cb_back};//返回初始界面
+    PreTrUI.Buttons.push_back(PreTrstart_button);
+    PreTrUI.Buttons.push_back(PreTrback_button);
+
+    //传送门游戏界面
+    Button* Trback_button=new Button {Point{x_max()-90, 20}, 90, 20, "Back", cb_back};//返回初始界面
+    TrGameUI.Buttons.push_back(Trback_button);
+
+    //当前界面为“空”
+    CurrUI=nullptr;
+    SwitchTo(MainUI);
 }
-*/
+
 
 //在不同UI间切换
 GameWindow::SwitchTo(UI& Next){
@@ -90,8 +84,8 @@ GameWindow::HideClGA(){
     }
 }
 
+//显示传送门游戏区域
 GameWindow::ShowTrGA(){
-    std::cout<<"ShowTrGA";
     Tr = true;
     attach(TrGA.ball);
     attach(TrGA.e);
@@ -110,7 +104,7 @@ GameWindow::ShowTrGA(){
     }
 }
 
-//隐藏经典游戏区域
+//隐藏传送门游戏区域
 GameWindow::HideTrGA(){
     Tr = false;
     detach(TrGA.ball);
@@ -128,32 +122,6 @@ GameWindow::HideTrGA(){
         detach(TrGA.circout[i]);
     }
 }
-
-
-GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
-{
-    //在窗口的构造函数里面定义这些按钮，因为所有界面都属于同一个类
-    std::cin.get();
-    std::cout<<"construct gamewindow"<<endl;
-    Button* quit_button1=new Button {Point{x_max()-90, 0}, 90, 20, "Quit", cb_quit};
-    Button* classical_button=new Button {Point{x_max()-90, 20}, 90, 20, "Classical", cb_Classical};
-    Button* transmission_button=new Button {Point{x_max()-90, 40}, 90, 20, "Transmission", cb_Transmission};
-    MainUI.Buttons.push_back(quit_button1);
-    MainUI.Buttons.push_back(classical_button);
-    MainUI.Buttons.push_back(transmission_button);
-
-    Button* quit_button2=new Button {Point{x_max()-90, 0}, 90, 20, "Quit", cb_quit};
-    Button* back_button=new Button {Point{x_max()-90, 20}, 90, 20, "Back", cb_back};
-    //Button* solution_button=new Button {Point{x_max()-70,40}, 70, 20, "solution", cb_solution};
-    GameUI.Buttons.push_back(quit_button2);
-    GameUI.Buttons.push_back(back_button);
-    //GameUI.Buttons.push_back(solution_button);
-    //当前界面为“空”
-    CurrUI=nullptr;
-    SwitchTo(MainUI);
-}
-
-
 
 
 //show part的简写，这里就是让线段集自己擦掉自己，然后再自己更新，显示小球附近5*5格子的区域，因为小球在移动到四个边界位置的时候，
@@ -318,18 +286,6 @@ bool GameWindow::Trhandle_keydown(int key)
   return ret;
 }
 
-/*
-void GameWindow::clock()
-{
-      long t=time(NULL);
-      while(time(NULL)==t);
-      for(;;){detach(ClGA.e);
-      if(ClGA.t0.sec==0&&ClGA.t0.min==0&&ClGA.t0.hour==0)return;
-      ClGA.t0.run();
-      attach(ClGA.e);
-      Fl::redraw();}
-
-}*/
 
 int GameWindow::handle(int event)
 {
