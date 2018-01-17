@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<stack>
 #include"maze.h"
+#include"time.h"
 using namespace std;
 
 //深度优先
@@ -19,38 +20,38 @@ void maze::random_construct1(){
     vector<int> dir;
     int dirtemp;
     srand((unsigned)time(0));
-    ////cout<<"Initialized!\n";
+    cout<<"Initialized!\n";
     do {
         if  (temp.x<width-1 && block_list[temp.x+1][temp.y].footprint==0){
             dir.push_back(0);
-            //cout<<"E is available.\n";
+            cout<<"E is available.\n";
         }
         if  (temp.y<height-1 && block_list[temp.x][temp.y+1].footprint==0){
             dir.push_back(1);
-            //cout<<"N is available.\n";
+            cout<<"N is available.\n";
         }
         if  (temp.x>0 && block_list[temp.x-1][temp.y].footprint==0){
             dir.push_back(2);
-            //cout<<"W is available.\n";
+            cout<<"W is available.\n";
         }
         if  (temp.y>0 && block_list[temp.x][temp.y-1].footprint==0){
             dir.push_back(3);
-            //cout<<"S is available.\n";
+            cout<<"S is available.\n";
         }
-        //cout<<"Direction size is: "<<dir.size()<<endl;
-        //cout<<"Available directions are: ";
+        cout<<"Direction size is: "<<dir.size()<<endl;
+        cout<<"Available directions are: ";
         if (dir.size()!=0){
             for (int i=0;i<dir.size()-1;++i){
-                //cout<<dir[i]<<' ';
+                cout<<dir[i]<<' ';
             }
         }
-        //cout<<endl;
+        cout<<endl;
         if (!dir.empty()){
             history.push(temp);
-            //cout<<"Stack size is: "<<history.size()<<endl;
+            cout<<"Stack size is: "<<history.size()<<endl;
             dirtemp=dir[rand()%dir.size()];
-            //cout<<dirtemp<<" is chosen.\n";
-            //cout<<dir.empty()<<endl;
+            cout<<dirtemp<<" is chosen.\n";
+            cout<<dir.empty()<<endl;
             switch(dirtemp){
                 case 0:
                 block_list[temp.x][temp.y].east=0;
@@ -71,16 +72,16 @@ void maze::random_construct1(){
             }
             block_list[temp.x][temp.y].footprint=1;
             //use rand to generate random numbers for the position of transfer gates
-            //cout<<"Run to "<<temp.x<<","<<temp.y<<'\n';
+            cout<<"Run to "<<temp.x<<","<<temp.y<<'\n';
         } else {
             temp=history.top();
             history.pop();
-            //cout<<"Stack size is: "<<history.size()<<endl;
-            //cout<<"No availble direction, run to "<<temp.x<<","<<temp.y<<'\n';
+            cout<<"Stack size is: "<<history.size()<<endl;
+            cout<<"No availble direction, run to "<<temp.x<<","<<temp.y<<'\n';
         }
         dir.clear();
     } while (!history.empty());
-    //cout<<"Construction complete!";
+    cout<<"Construction complete!";
 }
 
 //随机Prim
@@ -95,39 +96,38 @@ void maze::random_construct2(){
     vector<coor> visited;
     vector<int> dir;
     int dirtemp;
-    srand((unsigned)time(0));
     coor temp {0,0};
     visited.push_back(temp);
     block_list[temp.x][temp.y].footprint=1;
     while (visited.size()!=width*height){
         temp=visited[rand()%visited.size()];
-        //cout<<temp.x<<","<<temp.y<<" chosen"<<endl;
+        cout<<temp.x<<","<<temp.y<<" chosen"<<endl;
         if  (temp.x<width-1 && block_list[temp.x+1][temp.y].footprint==0){
             dir.push_back(0);
-            //cout<<"E is available.\n";
+            cout<<"E is available.\n";
         }
         if  (temp.y<height-1 && block_list[temp.x][temp.y+1].footprint==0){
             dir.push_back(1);
-            //cout<<"N is available.\n";
+            cout<<"N is available.\n";
         }
         if  (temp.x>0 && block_list[temp.x-1][temp.y].footprint==0){
             dir.push_back(2);
-            //cout<<"W is available.\n";
+            cout<<"W is available.\n";
         }
         if  (temp.y>0 && block_list[temp.x][temp.y-1].footprint==0){
             dir.push_back(3);
-            //cout<<"S is available.\n";
+            cout<<"S is available.\n";
         }
         if (dir.size()!=0){
             for (int i=0;i<dir.size()-1;++i){
-                //cout<<dir[i]<<' ';
+                cout<<dir[i]<<' ';
             }
         }
-        //cout<<endl;
+        cout<<endl;
         if (!dir.empty()){
             dirtemp=dir[rand()%dir.size()];
-            //cout<<dirtemp<<" is chosen.\n";
-            //cout<<dir.empty()<<endl;
+            cout<<dirtemp<<" is chosen.\n";
+            cout<<dir.empty()<<endl;
             switch(dirtemp){
                 case 0:
                 block_list[temp.x][temp.y].east=0;
@@ -149,7 +149,7 @@ void maze::random_construct2(){
             dir.clear();
             block_list[temp.x][temp.y].footprint=1;
             visited.push_back(temp);
-            //cout<<"Visited "<<temp.x<<","<<temp.y<<'\n';
+            cout<<"Visited "<<temp.x<<","<<temp.y<<'\n';
         }
     }
 }
@@ -161,7 +161,6 @@ int random(int a,int b){
 }
 
 void maze::random_construct3(){
-    srand((unsigned)time(0));
     for (int i=0;i<width;++i){
         block_list.push_back(vector<block> {});
         for (int j=0;j<height;++j){
@@ -183,14 +182,14 @@ void maze::random_construct3(){
         if (x1==x2 || y1==y2) return;
         int xm=rand()%(x2-x1)+x1;
         int ym=rand()%(y2-y1)+y1;
-        //cout<<"divide point: "<<xm<<","<<ym<<endl;
+        cout<<"divide point: "<<xm<<","<<ym<<endl;
         for (int i=x1;i<=x2;++i) {
             block_list[i][ym].north=1;
-            //cout<<"wall built "<<i<<","<<ym<<endl;
+            cout<<"wall built "<<i<<","<<ym<<endl;
         }
         for (int i=y1;i<=y2;++i) {
             block_list[xm][i].east=1;
-            //cout<<"wall built "<<ym<<","<<i<<endl;
+            cout<<"wall built "<<ym<<","<<i<<endl;
         }
         int xd1=rand()%(xm-x1+1)+x1;
         block_list[xd1][ym].north=0;
@@ -209,7 +208,7 @@ void maze::random_construct3(){
         wall=rand()%a.size();
         int mmm=rand()%(block_list[width-1][height-1].east+4);
 
-        //cout<<"wall is "<<mmm<<endl;
+        cout<<"wall is "<<mmm<<endl;
         switch (wall){
         case 0:
             block_list[xd1][ym].north=1;
@@ -231,6 +230,7 @@ void maze::random_construct3(){
     }
 
         PG maze::passing_gates(){
+            srand((unsigned)time(NULL));
             PG pg;
             pg.pg1corx = rand()%(width);
             pg.pg1cory = rand()%(height);

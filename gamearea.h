@@ -10,10 +10,10 @@
 #include "time.h"
 using namespace Graph_lib;
 
-const int height {10};
-const int width {10};
+const int height {20};
+const int width {20};
 const char diff {'E'};
-const int pgpairs {20};
+const int pgpairs {1};
 
 const int pgradius1 {5};//内半径
 const int pgradius2 {7};//外半径
@@ -31,32 +31,10 @@ struct Track
 
 //游戏区域（Game Area的缩写）
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
-struct GC {
+struct GA {
     Circle ball;
-    int corrx{0};
-    int corry{0};
-    maze* M;
-    Time t0{width*height/5};
-    Vector_ref<Line> l1;
-    Vector_ref<Line> l2;
-    //Vector_ref<Line> l3;
-    //Vector_ref<Text> arrow;
-    Text t{Point{100,100},"You make it!"};
-    Text e{Point{30,40},t0.timeline};
-    GC();
-    ~GC(){delete M;}
-    //vector<Track> trace;
-    void renewal();
-    //void tracing();
-};
-
-//Game Transfer
-struct GT {
-    Circle ball;
-    int corrx{0};
-    int corry{0};
-    maze* M;
-    Time t0{width*height/5};
+    maze M{width,height,diff,pgpairs};
+    Time t0{0,width*height/400,0};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
     //Vector_ref<Line> l3;
@@ -65,10 +43,9 @@ struct GT {
     //Vector_ref<Text> arrow;
     Text t{Point{100,100},"You make it!"};
     Text e{Point{30,40},t0.timeline};
-    GT();
-    ~GT(){delete M;}
+    GA();
     //vector<Track> trace;
-    void renewal();
+    void renewal(int rcox,int rcoy);
     //void tracing();
 };
 
