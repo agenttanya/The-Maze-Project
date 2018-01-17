@@ -2,7 +2,6 @@
 #include<stdlib.h>
 #include<stack>
 #include"maze.h"
-#include"time.h"
 using namespace std;
 
 //深度优先
@@ -232,7 +231,6 @@ void maze::random_construct3(){
     }
 
         PG maze::passing_gates(){
-            srand((unsigned)time(NULL));
             PG pg;
             pg.pg1corx = rand()%(width);
             pg.pg1cory = rand()%(height);

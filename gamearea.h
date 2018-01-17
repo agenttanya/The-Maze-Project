@@ -13,7 +13,7 @@ using namespace Graph_lib;
 const int height {20};
 const int width {20};
 const char diff {'H'};
-const int pgpairs {1};
+const int pgpairs {20};
 
 const int pgradius1 {5};//内半径
 const int pgradius2 {7};//外半径
@@ -31,7 +31,24 @@ struct Track
 
 //游戏区域（Game Area的缩写）
 //它是用于实现游戏功能的，目前它其实是经典模式的游戏区域
-struct GA {
+struct GC {
+    Circle ball;
+    maze M{width,height,diff};
+    Time t0{width*height/5};
+    Vector_ref<Line> l1;
+    Vector_ref<Line> l2;
+    //Vector_ref<Line> l3;
+    //Vector_ref<Text> arrow;
+    Text t{Point{100,100},"You make it!"};
+    Text e{Point{30,40},t0.timeline};
+    GC();
+    //vector<Track> trace;
+    void renewal(int rcox,int rcoy);
+    //void tracing();
+};
+
+//Game Transfer
+struct GT {
     Circle ball;
     maze M{width,height,diff,pgpairs};
     Time t0{width*height/5};
@@ -43,7 +60,7 @@ struct GA {
     //Vector_ref<Text> arrow;
     Text t{Point{100,100},"You make it!"};
     Text e{Point{30,40},t0.timeline};
-    GA();
+    GT();
     //vector<Track> trace;
     void renewal(int rcox,int rcoy);
     //void tracing();

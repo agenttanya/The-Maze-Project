@@ -32,7 +32,8 @@ struct GameWindow:public Graph_lib::Window{
 
     int corrx{0};
     int corry{0};
-
+    bool Cl{false};
+    bool Tr{false};
 
 
     GameWindow();
@@ -47,9 +48,13 @@ struct GameWindow:public Graph_lib::Window{
 
     //“经典”模式游戏的区域，Cl是Classical的缩写
     //我希望每种模式的游戏区域是不同的类，这个还没做
-    GA ClGA;
+    GC ClGA;
     ShowClGA();
     HideClGA();
+
+    GT TrGA;
+    ShowTrGA();
+    HideTrGA();
 
     void timeout();
     void manage_timeout();
@@ -65,12 +70,23 @@ struct GameWindow:public Graph_lib::Window{
 
 
 
-    static void cb_start(void*, void* pw) {
-        static_cast<GameWindow*>(pw)->start();
+    static void cb_Classical(void*, void* pw) {
+        static_cast<GameWindow*>(pw)->Classical();
     }
-    void start(){
+
+
+    static void cb_Transmission(void*, void* pw) {
+        static_cast<GameWindow*>(pw)->Transmission();
+    }
+
+    void Classical(){
         SwitchTo(GameUI);
         ShowClGA();
+    }
+
+    void Transmission(){
+        SwitchTo(GameUI);
+        ShowTrGA();
     }
 
     static void cb_back(void*, void* pw) {
@@ -78,7 +94,12 @@ struct GameWindow:public Graph_lib::Window{
     }
     void back() {
         SwitchTo(MainUI);
+        if(Cl == true){
         HideClGA();
+        }
+        else if(Tr==true){
+        HideTrGA();
+        }
     }
 /*
      static void cb_solution(void*, void* pw) {

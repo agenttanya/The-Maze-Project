@@ -1,6 +1,6 @@
 #ifndef MAZE_H
 #define MAZE_H
-
+#include"time.h"
 #include<vector>
 using namespace std;
 
@@ -27,7 +27,7 @@ struct maze{
     int width;
     vector<vector<block> > block_list;
     vector<PG> PG_list;
-    maze (int h=0,int w=0,char difficulty='N',int pgpairs = 1) {
+    maze (int h=0,int w=0,char difficulty='N',int pgpairs = 0) {
         height=h;
         width=w;
         switch (difficulty){
@@ -41,9 +41,10 @@ struct maze{
             random_construct2();
             break;
         }
+        srand((unsigned)time(NULL));
         for(int i=0;i<pgpairs;++i){
-        PG pg = passing_gates();
-        PG_list.push_back(pg);
+        PG pgate = passing_gates();
+        PG_list.push_back(pgate);
         }
     }
     private:
