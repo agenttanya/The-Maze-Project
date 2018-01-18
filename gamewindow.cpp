@@ -34,6 +34,21 @@ GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
     PreClUI.Inboxes.push_back(ClWidthBox);
     PreClUI.Inboxes.push_back(ClHeightBox);
     PreClUI.Inboxes.push_back(ClDiffBox);
+    Text*Clreference1=new Text{Point{20,20},"Please put positive integer into height and width box."};
+    Text*Clreference2=new Text{Point{20,40},"There is 'E','N'and 'H' three ranks of difficulty."};
+    Text*Clreference3=new Text{Point{20,60},"Use the direction key to move and you have 3 hints"};
+    Text*Clreference4=new Text{Point{20,80},"Be sure to get out before the countdown ends."};
+    Text*Clreference5=new Text{Point{20,100},"The faster, the better score you will get."};
+    PreClUI.Texts.push_back(Clreference1);
+    PreClUI.Texts.push_back(Clreference2);
+    PreClUI.Texts.push_back(Clreference3);
+    PreClUI.Texts.push_back(Clreference4);
+    PreClUI.Texts.push_back(Clreference5);
+
+
+
+
+
 
     //经典游戏界面
     Button* Clback_button=new Button {Point{x_max()-90, 20}, 90, 20, "Back", cb_back};//返回初始界面
@@ -48,16 +63,28 @@ GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
     //准备进入传送门游戏界面
     Button* PreTrstart_button=new Button {Point{120, 280}, 160, 30, "Start", cb_Trstart};//开始传送门游戏
     Button* PreTrback_button=new Button {Point{120, 320}, 160, 30, "Back", cb_back};//返回初始界面
-    In_box* TrWidthBox=new In_box {Point{200,90},40,20,"Width is"};
-    In_box* TrHeightBox=new In_box {Point{200,140},40,20,"Height is"};
-    In_box* TrDiffBox=new In_box {Point{205,190},40,20,"Difficulty is"};
-    In_box* TrPgprBox=new In_box {Point{220,240},40,20,"Number of gate pair is"};
+    In_box* TrWidthBox=new In_box {Point{200,120},40,20,"Width is"};
+    In_box* TrHeightBox=new In_box {Point{200,150},40,20,"Height is"};
+    In_box* TrDiffBox=new In_box {Point{205,180},40,20,"Difficulty is"};
+    In_box* TrPgprBox=new In_box {Point{220,210},40,20,"Number of gate pair is"};
     PreTrUI.Buttons.push_back(PreTrstart_button);
     PreTrUI.Buttons.push_back(PreTrback_button);
     PreTrUI.Inboxes.push_back(TrWidthBox);
     PreTrUI.Inboxes.push_back(TrHeightBox);
     PreTrUI.Inboxes.push_back(TrDiffBox);
     PreTrUI.Inboxes.push_back(TrPgprBox);
+    Text*Trreference1=new Text{Point{20,20},"ONlY POSITIVE integer into height, width and gate pair box."};
+    Text*Trreference2=new Text{Point{20,40},"There is 'E','N'and 'H' three ranks of difficulty."};
+    Text*Trreference3=new Text{Point{20,60},"Use the direction key to move and 'enter' to use portal."};
+    Text*Trreference4=new Text{Point{20,80},"Be sure to get out before the countdown ends."};
+    Text*Trreference5=new Text{Point{20,100},"The faster, the better score you will get."};
+    PreTrUI.Texts.push_back(Trreference1);
+    PreTrUI.Texts.push_back(Trreference2);
+    PreTrUI.Texts.push_back(Trreference3);
+    PreTrUI.Texts.push_back(Trreference4);
+    PreTrUI.Texts.push_back(Trreference5);
+
+
 
     //传送门游戏界面
     Button* Trback_button=new Button {Point{x_max()-90, 20}, 90, 20, "Back", cb_back};//返回初始界面
@@ -70,9 +97,9 @@ GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
     //结束界面
     Button*Endback_button=new Button {Point{x_max()-90, 0}, 90, 20, "Back", cb_back};
     EndUI.Buttons.push_back(Endback_button);
-    Text* Ending=new Text {Point{200,20},""};
+    Text* Ending=new Text {Point{20,20},""};
     EndUI.Texts.push_back(Ending);
-    Text* final_score=new Text {Point{200,40},""};
+    Text* final_score=new Text {Point{180,40},""};
     EndUI.Texts.push_back(final_score);
 
     //当前界面为“空”
@@ -424,53 +451,10 @@ void  GameWindow::Clmanage_timeout() {
  {
     if (ClGA.chances>0){
     ClGA.chances-= 1;
-    AM_Stack AM_Path;
-    coor end_p {ClGA.M->width-1,ClGA.M->height-1};
-    for (int i=0;i<=end_p.x;++i)
-    for (int j=0;j<=end_p.y;++j){
-      ClGA.M->block_list[i][j].footprint=true;
-    }
-    coor cp {ClGA.corrx,ClGA.corry};    //记录当前坐标
-    AM_Path.push(cp);
-    ClGA.M->block_list[cp.x][cp.y].footprint=false;
 
-    while (true){
-        bool footprint=false;
-        if (cp.x == end_p.x && cp.y == end_p.y)
-            break;
-        if (ClGA.M->block_list[cp.x][cp.y].north==0 && ClGA.M->block_list[cp.x][cp.y+1].footprint==true)  //向下
-        {
-            AM_Path.push(coor{cp.x, cp.y+1});
-            cp.y +=1 ;
-            ClGA.M->block_list[cp.x][cp.y].footprint=false;
-            footprint=true;
-        }
-       if (ClGA.M->block_list[cp.x][cp.y].east==0 && ClGA.M->block_list[cp.x+1][cp.y].footprint==true)  //向右
-        {
-            AM_Path.push(coor{cp.x+1, cp.y});
-            cp.x +=1 ;
-            ClGA.M->block_list[cp.x][cp.y].footprint=false;
-            footprint=true;
-        }
-        if (cp.y!=0 && ClGA.M->block_list[cp.x][cp.y-1].north==0 && ClGA.M->block_list[cp.x][cp.y-1].footprint==true)  //向上
-        {
-            AM_Path.push(coor{cp.x, cp.y-1});
-            cp.y -=1 ;
-            ClGA.M->block_list[cp.x][cp.y].footprint=false;
-            footprint=true;
-        }
-       if (cp.x!=0 && ClGA.M->block_list[cp.x-1][cp.y].east==0 && ClGA.M->block_list[cp.x-1][cp.y].footprint==true)  //向左
-       {
-            AM_Path.push(coor{cp.x-1, cp.y});
-            cp.x -=1 ;
-            ClGA.M->block_list[cp.x][cp.y].footprint=false;
-            footprint=true;
-        }
-        if (footprint==false){
-          AM_Path.pop();
-          cp=AM_Path.get_top();
-        }
-    }
+    AM_Stack AM_Path;
+    AM_Path.get_path(ClGA.corrx, ClGA.corry, *ClGA.M);
+
     coor *p1 = AM_Path.base;
     coor *p2 = p1->next;
 

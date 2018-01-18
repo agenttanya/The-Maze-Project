@@ -22,7 +22,7 @@ const int WallWidth {20};//墙宽度
 const int VisibleRadius {5};//显示的半径
 const int BallWidth {5};//球半径
 
-const std::string Vict {"You are victorious!"};
+const std::string Vict {"You are victorious!and your final score is "};
 const std::string Lost {"You have lost!"};
 
 
