@@ -8,13 +8,11 @@ struct block{
     bool east;
     bool north;
     bool footprint;
-    bool moved;
 };
 
 struct coor{
     int x;
     int y;
-    coor *next;
 };
 
 struct PG{
