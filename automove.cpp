@@ -25,7 +25,7 @@ int AM_Stack::push(coor point)
     return ++length;
 }
 
-coor AM_Stack::get_top()
+coor AM_Stack::getTop()
 {
     return *top;
 }
@@ -58,62 +58,8 @@ int AM_Stack::getLength()
     return length;
 }
 
-
-void AM_Stack::get_path(int currentx, int currenty, maze m)
-{
-    for (int i = 0; i<m.width; i++)
-        for (int j = 0; j<m.height; j++)
-        {
-          m.block_list[i][j].moved = true;
-        }
-
-    coor start_p{currentx,currenty};  //初始坐标（入口）
-    coor end_p{m.width-1, m.height-1};    //结束坐标（出口）
-
-    AM_Stack AM_Path;
-    AM_Path.push(start_p);
-
-    coor cp=start_p;    //记录当前坐标
-    while (true)
-    {
-        if (cp.x == end_p.x && cp.y == end_p.y)
-            break;
-        if (m.block_list[cp.x][cp.y].north==0 && m.block_list[cp.x][cp.y+1].moved)  //向下
-        {
-            m.block_list[cp.x][cp.y+1].moved = false;
-            AM_Path.push(coor{cp.x, cp.y+1});
-            cp.y +=1 ;
-            continue;
-        }
-       if (m.block_list[cp.x][cp.y].east==0 && m.block_list[cp.x+1][cp.y].moved)  //向右
-        {
-            m.block_list[cp.x+1][cp.y].moved = false;
-            AM_Path.push(coor{cp.x+1, cp.y});
-            cp.x +=1 ;
-            continue;
-        }
-        if (m.block_list[cp.x][cp.y-1].north==0 && m.block_list[cp.x][cp.y-1].moved)  //向上
-        {
-            m.block_list[cp.x][cp.y-1].moved = false;
-            AM_Path.push(coor{cp.x, cp.y-1});
-            cp.y -=1 ;
-            continue;
-        }
-       if (m.block_list[cp.x-1][cp.y].east==0 && m.block_list[cp.x-1][cp.y].moved)  //向左
-        {
-            m.block_list[cp.x-1][cp.y].moved = false;
-            AM_Path.push(coor{cp.x-1, cp.y});
-            cp.x -=1 ;
-            continue;
-        }
-        AM_Path.pop();
-        cp = AM_Path.getTop();
-    }
-}
-
 void AM_Stack::print_full()
 {
-
     coor *p = base;
     while (p != NULL)
     {
@@ -123,18 +69,65 @@ void AM_Stack::print_full()
 
 }
 
-coor AM_Stack::get_base(int currentx, int currenty, maze m)
+void AM_Stack::print_first()
 {
-   get_path(currentx, currenty, m);
-   coor *p = base;
-   return *p;
+   coor*p = base;
+   cout << "(" << p->x << "," << p->y << ")" << endl;
 }
 
-coor AM_Stack::get_first(int currentx, int currenty, maze m)
+////////////////////////////////////////////////////////////////////
+
+int main()
 {
-   get_path(currentx, currenty, m);
-   coor *p1 = base;
-   coor *p2 =NULL;
-   p2 = p1->next;
-   return *p2;
+    maze tm(10,10,'E',0);
+    for (int i = 0; i<10; i++)
+        for (int j = 0; j<10; j++)
+        {
+          tm.block_list[i][j].moved = true;
+        }
+
+    coor start_p{0,0};  //初始坐标（入口）
+    coor end_p{9,9};    //结束坐标（出口）
+
+    AM_Stack AM_Path;
+    AM_Path.push(start_p);
+
+    coor cp=start_p;    //记录当前坐标
+    while (true)
+    {
+        if (cp.x == end_p.x && cp.y == end_p.y)
+            break;
+        if (tm.block_list[cp.x][cp.y].north==0 && tm.block_list[cp.x][cp.y+1].moved)  //向下
+        {
+            tm.block_list[cp.x][cp.y+1].moved = false;
+            AM_Path.push(coor{cp.x, cp.y+1});
+            cp.y +=1 ;
+            continue;
+        }
+       if (tm.block_list[cp.x][cp.y].east==0 && tm.block_list[cp.x+1][cp.y].moved)  //向右
+        {
+            tm.block_list[cp.x+1][cp.y].moved = false;
+            AM_Path.push(coor{cp.x+1, cp.y});
+            cp.x +=1 ;
+            continue;
+        }
+        if (tm.block_list[cp.x][cp.y-1].north==0 && tm.block_list[cp.x][cp.y-1].moved)  //向上
+        {
+            tm.block_list[cp.x][cp.y-1].moved = false;
+            AM_Path.push(coor{cp.x, cp.y-1});
+            cp.y -=1 ;
+            continue;
+        }
+       if (tm.block_list[cp.x-1][cp.y].east==0 && tm.block_list[cp.x-1][cp.y].moved)  //向左
+        {
+            tm.block_list[cp.x-1][cp.y].moved = false;
+            AM_Path.push(coor{cp.x-1, cp.y});
+            cp.x -=1 ;
+            continue;
+        }
+        AM_Path.pop();
+        cp = AM_Path.getTop();
+    }
+  AM_Path.print_full();
+  return 0;
 }
