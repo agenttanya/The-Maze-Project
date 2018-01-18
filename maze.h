@@ -13,6 +13,7 @@ struct block{
 struct coor{
     int x;
     int y;
+    coor *next;
 };
 
 struct PG{

@@ -18,6 +18,8 @@ const int pgpairs {20};
 const int pgradius1 {5};//ÄÚ°ë¾¶
 const int pgradius2 {7};//Íâ°ë¾¶
 
+const std::string hint {"Hints run out!"};
+
 /*
 struct Track
 {
@@ -35,19 +37,20 @@ struct GC {
     Circle ball;
     int corrx{0};
     int corry{0};
-    maze* M;
-    Time t0{width*height/5};
+    int chances {0};
+    maze* M {nullptr};
+    Initialize(int w,int d,char diff);
+    Time t0 {0};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
     //Vector_ref<Line> l3;
-    //Vector_ref<Text> arrow;
-    Text t{Point{100,100},"You make it!"};
-    Text e{Point{30,40},t0.timeline};
+    Vector_ref<Text> arrow;
     GC();
     ~GC(){delete M;}
     //vector<Track> trace;
     void renewal();
     //void tracing();
+    std::string get_coor ();
 };
 
 //Game Transfer
@@ -55,21 +58,21 @@ struct GT {
     Circle ball;
     int corrx{0};
     int corry{0};
-    maze* M;
-    Time t0{width*height/5};
+    maze* M {nullptr};
+    Time t0 {0};
     Vector_ref<Line> l1;
     Vector_ref<Line> l2;
     //Vector_ref<Line> l3;
     Vector_ref<Circle> circin;
     Vector_ref<Circle> circout;
     //Vector_ref<Text> arrow;
-    Text t{Point{100,100},"You make it!"};
-    Text e{Point{30,40},t0.timeline};
     GT();
     ~GT(){delete M;}
+    Initialize(int w,int d,char diff, int pgpairs);
     //vector<Track> trace;
     void renewal();
     //void tracing();
+    std::string get_coor ();
 };
 
 
