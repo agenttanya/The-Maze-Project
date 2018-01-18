@@ -2,6 +2,7 @@
 #include"gamewindow.h"
 #include<iostream>
 #include<algorithm>
+#include<sstream>
 using namespace Graph_lib;
 
 
@@ -52,16 +53,23 @@ GC::GC():
 
 GC::Initialize(int w, int h, char diff) {
     t0=Time(w*h/5);
-    e.set_label(t0.timeline);
     l1.erase();
     l2.erase();
+    arrow.erase();
     corrx=0;
     corry=0;
+    chances=3;
     if (M!=nullptr) {
         delete M;
         M=nullptr;
     }
     M=new maze(w,h,diff);
+}
+
+std::string GC::get_coor(){
+    ostringstream os;
+    os<<'('<<corrx<<','<<corry<<')';
+    return os.str().c_str();
 }
 
 void GT::renewal()
@@ -101,7 +109,6 @@ void GT::renewal()
 
 GT::Initialize(int w, int h, char diff, int pgpairs) {
     t0=Time((pgpairs+1)*w*h/5);
-    e.set_label(t0.timeline);
     l1.erase();
     l2.erase();
     circin.erase();
@@ -121,4 +128,10 @@ GT::GT():
     ball.set_style(Line_style{Line_style::solid, 1});
     ball.set_fill_color(Color::red);
     ball.set_color(Color::red);
+}
+
+std::string GT::get_coor(){
+    ostringstream os;
+    os<<'('<<corrx<<','<<corry<<')';
+    return os.str().c_str();
 }
