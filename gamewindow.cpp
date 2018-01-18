@@ -63,26 +63,26 @@ GameWindow::GameWindow():Window {P,WindowWidth,WindowHeight,Title}
     //准备进入传送门游戏界面
     Button* PreTrstart_button=new Button {Point{120, 280}, 160, 30, "Start", cb_Trstart};//开始传送门游戏
     Button* PreTrback_button=new Button {Point{120, 320}, 160, 30, "Back", cb_back};//返回初始界面
-    In_box* TrWidthBox=new In_box {Point{200,120},40,20,"Width is"};
-    In_box* TrHeightBox=new In_box {Point{200,150},40,20,"Height is"};
-    In_box* TrDiffBox=new In_box {Point{205,180},40,20,"Difficulty is"};
-    In_box* TrPgprBox=new In_box {Point{220,210},40,20,"Number of gate pair is"};
+    In_box* TrWidthBox=new In_box {Point{200,150},40,20,"Width is"};
+    In_box* TrHeightBox=new In_box {Point{200,180},40,20,"Height is"};
+    In_box* TrDiffBox=new In_box {Point{205,210},40,20,"Difficulty is"};
     PreTrUI.Buttons.push_back(PreTrstart_button);
     PreTrUI.Buttons.push_back(PreTrback_button);
     PreTrUI.Inboxes.push_back(TrWidthBox);
     PreTrUI.Inboxes.push_back(TrHeightBox);
     PreTrUI.Inboxes.push_back(TrDiffBox);
-    PreTrUI.Inboxes.push_back(TrPgprBox);
-    Text*Trreference1=new Text{Point{20,20},"ONlY POSITIVE integer into height, width and gate pair box."};
-    Text*Trreference2=new Text{Point{20,40},"There is 'E','N'and 'H' three ranks of difficulty."};
-    Text*Trreference3=new Text{Point{20,60},"Use the direction key to move and 'enter' to use portal."};
-    Text*Trreference4=new Text{Point{20,80},"Be sure to get out before the countdown ends."};
-    Text*Trreference5=new Text{Point{20,100},"The faster, the better score you will get."};
+    Text*Trreference1=new Text{Point{20,20},"ONlY POSITIVE integer into height, width."};
+    Text*Trreference2=new Text{Point{20,40},"Maze which is too large may cause unexpected error."};
+    Text*Trreference3=new Text{Point{20,60},"There is 'E','N'and 'H' three ranks of difficulty."};
+    Text*Trreference4=new Text{Point{20,80},"Use the direction key to move and 'enter' to use portal."};
+    Text*Trreference5=new Text{Point{20,100},"Be sure to get out before the countdown ends."};
+    Text*Trreference6=new Text{Point{20,120},"The faster, the better score you will get."};
     PreTrUI.Texts.push_back(Trreference1);
     PreTrUI.Texts.push_back(Trreference2);
     PreTrUI.Texts.push_back(Trreference3);
     PreTrUI.Texts.push_back(Trreference4);
     PreTrUI.Texts.push_back(Trreference5);
+    PreTrUI.Texts.push_back(Trreference6);
 
 
 
@@ -413,6 +413,7 @@ void  GameWindow::Cltimeout() {
                     HideClGA();
                     SwitchTo(EndUI);
                     EndUI.Texts[0].set_label(Lost);
+                    EndUI.Texts[1].set_label("");
             }
             return;
     }
@@ -428,6 +429,7 @@ void  GameWindow::Cltimeout() {
                     HideTrGA();
                     SwitchTo(EndUI);
                     EndUI.Texts[0].set_label(Lost);
+                    EndUI.Texts[1].set_label("");
             }
             return;
     }

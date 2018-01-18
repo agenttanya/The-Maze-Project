@@ -119,11 +119,10 @@ struct GameWindow:public Graph_lib::Window{
         int w=PreTrUI.Inboxes[0].get_int();
         int h=PreTrUI.Inboxes[1].get_int();
         char diff=PreTrUI.Inboxes[2].get_string()[0];
-        int pgpairs=PreTrUI.Inboxes[3].get_int();
-        if (w<=0 || h<=0 ||diff<=0 ||pgpairs<0||(diff!='E'&&diff!='N'&&diff!='H')) {
+        if (w<=0 || h<=0 ||diff<=0 ||(diff!='E'&&diff!='N'&&diff!='H')) {
             return;
         }
-        TrGA.Initialize(w,h,diff,pgpairs);
+        TrGA.Initialize(w,h,diff,1);
         SwitchTo(TrGameUI);
         TrGA.renewal();
         ShowTrGA();

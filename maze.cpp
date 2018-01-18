@@ -230,11 +230,116 @@ void maze::random_construct3(){
         division(xm+1,x2,ym+1,y2);
     }
 
-        PG maze::passing_gates(){
+
+    //////////////////////
+    void maze::pgrandom_construct(){
+    int ifempty{0};
+    vector<stack<coor>> history;
+    for (int i=0;i<width;++i){
+        block_list.push_back(vector<block> {});
+        for (int j=0;j<height;++j){
+            block_list[i].push_back({1,1,0});
+        }
+    }
+    coor temp;
+    srand((unsigned)time(0));
+    for (int i=0;i<zones;++i){
+    if(i==0) temp = {0,0};
+    else if(i==1) temp = {width-1,height-1};
+    else
+    {    for (int j=0;j<area_list.size();++j){
+         coor tempini = area_list[j][1];
+         while(temp.x == tempini.x && temp.y == tempini.y)temp = {rand()%width,rand()%height};}
+    }
+
+    area_list.push_back(vector<coor> {});
+    stack<coor> st{};
+    history.push_back(st);
+    area_list[i].push_back(temp);
+    block_list[temp.x][temp.y].footprint=1;
+
+    }
+    vector<int> dir;
+    int dirtemp;
+    ////cout<<"Initialized!\n";
+    do {
+        for (int i=0;i<zones;++i){
+            coor temp = area_list[i][area_list[i].size()-1];
+            if  (temp.x<width-1 && block_list[temp.x+1][temp.y].footprint==0){
+                dir.push_back(0);
+                //cout<<"E is available.\n";
+                }
+            if  (temp.y<height-1 && block_list[temp.x][temp.y+1].footprint==0){
+                dir.push_back(1);
+                //cout<<"N is available.\n";
+                }
+            if  (temp.x>0 && block_list[temp.x-1][temp.y].footprint==0){
+                dir.push_back(2);
+
+                //cout<<"W is available.\n";
+                }
+            if  (temp.y>0 && block_list[temp.x][temp.y-1].footprint==0){
+                dir.push_back(3);
+                //cout<<"S is available.\n";
+                }
+            //cout<<"Direction size is: "<<dir.size()<<endl;
+            //cout<<"Available directions are: ";
+           // if (dir.size()!=0){
+            //for (int i=0;i<dir.size()-1;++i){
+                //cout<<dir[i]<<' ';
+            //}
+        //cout<<endl;
+        if (!dir.empty()){
+            history[i].push(temp);
+            //cout<<"Stack size is: "<<history.size()<<endl;
+            dirtemp=dir[rand()%dir.size()];
+            //cout<<dirtemp<<" is chosen.\n";
+            //cout<<dir.empty()<<endl;
+            switch(dirtemp){
+                case 0:
+                block_list[temp.x][temp.y].east=0;
+                temp={temp.x+1,temp.y};
+                break;
+                case 1:
+                block_list[temp.x][temp.y].north=0;
+                temp={temp.x,temp.y+1};;
+                break;
+                case 2:
+                block_list[temp.x-1][temp.y].east=0;
+                temp={temp.x-1,temp.y};
+                break;
+                case 3:
+                block_list[temp.x][temp.y-1].north=0;
+                temp={temp.x,temp.y-1};
+                break;
+            }
+            block_list[temp.x][temp.y].footprint=1;
+            area_list[i].push_back(temp);
+            //use rand to generate random numbers for the position of transfer gates
+            //cout<<"Run to "<<temp.x<<","<<temp.y<<'\n';
+        } else {
+            if(!history[i].empty()){
+            temp=history[i].top();
+            history[i].pop();
+            area_list[i].push_back(temp);
+            }
+            //cout<<"Stack size is: "<<history.size()<<endl;
+            //cout<<"No availble direction, run to "<<temp.x<<","<<temp.y<<'\n';
+        }
+        int emp = history[i].empty();
+        ifempty += emp;
+        dir.clear();
+           }
+    }while(ifempty != zones);
+}
+
+        PG maze::passing_gates(int a,int b){
             PG pg;
-            pg.pg1corx = rand()%(width);
-            pg.pg1cory = rand()%(height);
-            pg.pg2corx = rand()%(width);
-            pg.pg2cory = rand()%(height);
+            int PG1 = rand()%(area_list[a].size());
+            int PG2 = rand()%(area_list[b].size());
+            pg.pg1corx = area_list[a][PG1].x;
+            pg.pg1cory = area_list[a][PG1].y;
+            pg.pg2corx = area_list[b][PG2].x;
+            pg.pg2cory = area_list[b][PG2].y;
             return pg;
     }
